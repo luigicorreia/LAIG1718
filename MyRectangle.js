@@ -23,7 +23,7 @@
    var coordenates = this.args.split(" "); //left-top--- right-bottom
 
  	this.vertices = [
- 	coordenates[0], coordenates[3], 0,  
+ 	coordenates[0], coordenates[3], 0,
  	coordenates[2],coordenates[3], 0,
  	coordenates[0],coordenates[1], 0,
  	coordenates[2],coordenates[1], 0
@@ -53,3 +53,13 @@
  	this.primitiveType = this.scene.gl.TRIANGLES;
  	this.initGLBuffers();
  };
+
+ /*MyRectangle.prototype.scaleTexCoordss = function(s, t) {
+
+	for (var i = 0; i < this.texCoords.length; i += 2) {
+			this.texCoords[i] = this.texCoords[i] / s;
+			this.texCoords[i + 1] = this.textCoords[i+1] / t;
+	}
+
+	this.updateTexCoordsGLBuffers();
+}*/

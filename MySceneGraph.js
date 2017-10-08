@@ -1448,8 +1448,12 @@ MySceneGraph.prototype.transformationsdisplay = function(node,texturetmp,materia
       if(material != null)
          material.apply();   //aplica material
 
-     if(textura != null)
+     if(textura != null){
+       /*if(textura[1]!=1 || textura[2] != 1){
+         node.leaves[i].scaleTexCoords(textura[1],textura[2]);
+       }*/
          textura.bind();     // aplica textura
+       }
 
      node.leaves[i].display();   //faz display das leaves
     }

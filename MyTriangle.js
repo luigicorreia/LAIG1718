@@ -51,3 +51,13 @@
  	this.primitiveType = this.scene.gl.TRIANGLES;
  	this.initGLBuffers();
  };
+
+ /*MyTriangle.prototype.scaleTexCoordss = function(s, t) {
+
+   for (var i = 0; i < this.texCoords.length; i += 2) {
+ 		this.texCoords[i] = this.textCoords[i] / s;
+ 		this.texCoords[i + 1] = this.textCoords[i+1] / t;
+ 	}
+
+ 	this.updateTexCoordsGLBuffers();
+}*/

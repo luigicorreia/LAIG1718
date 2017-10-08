@@ -42,3 +42,9 @@ MyGraphLeaf.prototype.display = function(){
         this.obj.display();
     }
  }
+
+ MyGraphLeaf.prototype.scaleTexCoords = function(s,t){
+    if(this.type == "rectangle" || this.type == "triangle"){
+         this.obj.scaleTexCoordss(s,t);
+     }
+  }
