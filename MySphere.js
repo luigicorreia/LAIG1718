@@ -20,46 +20,27 @@ function MySphere(scene, args) {
 
  MySphere.prototype.initBuffers = function() {
 
-	this.vertices = [];
-	this.indices = [];
-	this.normals = [];
-	this.texCoords = [];
-  var stepAng = 2*Math.PI / this.slices;
-	var radius = Math.PI / this.stacks;
-	var curRadius = 0;
+    this.indices = [];
+  	this.vertices = [];
+  	this.normals = [];
+  	this.texCoords = [];
 
- 	for (var i = 0; i <this.stacks; i++){
-		curRadius = i * radius;
-		for (var j = 0; j < this.slices; j++){
-			this.vertices.push(this.radius * Math.sin(curRadius) * Math.cos(j*stepAng),
-                     this.radius * Math.sin(curRadius) * Math.sin(j*stepAng),
-                      this.radius * Math.cos(curRadius));
-      this.vertices.push(this.radius * Math.sin(curRadius + radius) * Math.cos(j*stepAng),
-                     this.radius * Math.sin(curRadius + radius) * Math.sin(j*stepAng),
-                      this.radius * Math.cos(radius * (i+1)));
+  	var ang1 = Math.PI / this.stacks;
+  	var ang2 = 2 * Math.PI / this.slices;
 
-      this.normals.push(this.radius * Math.sin(curRadius) * Math.cos(j*stepAng),
-                     this.radius * Math.sin(curRadius) * Math.sin(j*stepAng),
-                      this.radius * Math.cos(curRadius));
-			this.normals.push(this.radius * Math.sin(curRadius + radius) * Math.cos(j*stepAng),
-                     this.radius * Math.sin(curRadius + radius) * Math.sin(j*stepAng),
-                      this.radius * Math.cos(radius * (i+1)));
+ 	for (var i = 0; i <= this.stacks; ++i) {
+ 		for (var j = 0; j <= this.slices; ++j) {
+ 			this.vertices.push(this.radius * Math.sin(i * ang1) * Math.cos(j * ang2), this.radius * Math.sin(i * ang1) * Math.sin(j * ang2), this.radius * Math.cos(i * ang1));
+ 			this.normals.push(Math.sin(i * ang1) * Math.cos(j * ang2), Math.sin(i * ang1) * Math.sin(j * ang2), Math.cos(i * ang1));
+ 			this.texCoords.push(j/this.slices, 1-i/this.stacks);
+ 		}
+ 	}
 
-			this.texCoords.push(((i + 1)/this.stacks) * (Math.cos(j*stepAng)/2 + 0.5),
-                           (i + 1)/this.stacks) * (1- (Math.sin(j*stepAng)/2 + 0.5));
-			this.texCoords.push(((i + 1)/this.stacks) * (Math.cos(j*stepAng)/2 + 0.5),
-                           (i + 2)/this.stacks) * (1- (Math.sin(j*stepAng)/2 + 0.5));
-
-
-      this.indices.push((i*2*this.slices)+(2*j)+0);
-			this.indices.push((i*2*this.slices)+(2*j)+1);
-      this.indices.push((i*2*this.slices)+(((2*j)+3)% (this.slices * 2)));
-
-      this.indices.push((i*2*this.slices)+(((2*j)+2) % (this.slices * 2)));
-			this.indices.push((i*2*this.slices)+(((2*j)+0) % (this.slices * 2)));
-      this.indices.push((i*2*this.slices)+(((2*j)+3) % (this.slices * 2)));
-
-		}
+ 	for (var i = 0; i < this.stacks; ++i) {
+ 		for (var j = 0; j < this.slices; ++j) {
+ 			this.indices.push(i * (this.slices + 1) + j, (i + 1) * (this.slices + 1) + j, (i + 1) * (this.slices + 1) + j + 1);
+ 			this.indices.push(i * (this.slices + 1) + j, (i + 1) * (this.slices + 1) + j + 1, i * (this.slices + 1) + j + 1);
+ 		}
  	}
 
  	this.primitiveType = this.scene.gl.TRIANGLES;
