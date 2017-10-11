@@ -1430,8 +1430,9 @@ MySceneGraph.prototype.transformationsdisplay = function(node,texturetmp,materia
         material = this.materials[node.materialID];
 
 
-    if(node.textureID != "null" && node.textureID != "clear")
-        textura = this.textures[node.textureID][0];
+    if(node.textureID != "null" && node.textureID != "clear"){
+        textura = this.textures[node.textureID];
+    }
     else if(node.textureID == "clear")  //se "clear", limpa a textura recebida do pai
             textura = null;
 
@@ -1449,12 +1450,12 @@ MySceneGraph.prototype.transformationsdisplay = function(node,texturetmp,materia
          material.apply();   //aplica material
 
      if(textura != null){
-       /*if(textura[1]!=1 || textura[2] != 1){
-         node.leaves[i].scaleTexCoords(textura[1],textura[2]);
-       }*/
-         textura.bind();     // aplica textura
+       var s = textura[1];
+       var t = textura[2];
+         textura[0].bind();     // aplica textura
        }
-
+      // node.leaves[i].scaleTexCoords(this.textures[node.textureID][1],this.textures[node.textureID][2]);
+     node.leaves[i].scaleTexCoords(s,t);
      node.leaves[i].display();   //faz display das leaves
     }
 

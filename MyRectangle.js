@@ -43,23 +43,23 @@
 
  	];
 
- 	this.texCoords = [
-        minS,maxT,
-        maxS,maxT,
-        minS,minT,
-        maxS,minT
+ 	this.originalTexCoords = [
+        0,0,
+        Math.abs(coordenates[2]-coordenates[0]),0,
+        0,Math.abs(coordenates[3]-coordenates[1]),
+        Math.abs(coordenates[2]-coordenates[0]),Math.abs(coordenates[3]-coordenates[1])
     ];
+
+    this.texCoords = this.originalTexCoords.slice();
 
  	this.primitiveType = this.scene.gl.TRIANGLES;
  	this.initGLBuffers();
  };
 
- /*MyRectangle.prototype.scaleTexCoordss = function(s, t) {
-
+ MyRectangle.prototype.scaleTexCoordss = function(s, t) {
 	for (var i = 0; i < this.texCoords.length; i += 2) {
-			this.texCoords[i] = this.texCoords[i] / s;
-			this.texCoords[i + 1] = this.textCoords[i+1] / t;
+			this.texCoords[i] = this.originalTexCoords[i] / s;
+			this.texCoords[i + 1] = this.originalTexCoords[i+1] / t;
 	}
-
 	this.updateTexCoordsGLBuffers();
-}*/
+}
