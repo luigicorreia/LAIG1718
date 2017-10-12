@@ -32,6 +32,9 @@ function MyGraphLeaf(graph, xmlelem) {
            case "cylinder":
                this.obj = new MyCylinderWithTopAndBottom(graph.scene,String(this.args));
                break;
+           case "cylinder":
+               this.obj = new MyPach(graph.scene,String(this.args));
+               break;
            default:
                break;
        }
