@@ -12,12 +12,10 @@ function MyGraphLeaf(graph, xmlelem) {
        this.type = xmlelem.attributes[1].value;
        this.args = xmlelem.attributes[2].value;
 
-   }
-   else if(xmlelem.attributes.length == 2){
+   }else if(xmlelem.attributes.length == 2){
        this.type = xmlelem.attributes[0].value;
        this.args = xmlelem.attributes[1].value;
-   }
-   else alert("wrong number of arguments! ");
+   }else alert("wrong number of arguments! ");
 
    switch(this.type){
            case "rectangle":
@@ -32,8 +30,8 @@ function MyGraphLeaf(graph, xmlelem) {
            case "cylinder":
                this.obj = new MyCylinderWithTopAndBottom(graph.scene,String(this.args));
                break;
-           case "cylinder":
-               this.obj = new MyPach(graph.scene,String(this.args));
+           case "patch":
+               this.obj = new MyPatch(graph.scene,xmlelem);
                break;
            default:
                break;

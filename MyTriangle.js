@@ -13,7 +13,7 @@
 
  MyTriangle.prototype.initBuffers = function(args) {
 
-   var coordenates = args.split(" ");
+   var coordenates = args.split(" ").map(Number);
 
 
  	this.vertices = [

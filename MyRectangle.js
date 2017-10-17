@@ -20,7 +20,7 @@
 
  MyRectangle.prototype.initBuffers = function() {
 
-   var coordenates = this.args.split(" "); //left-top--- right-bottom
+   var coordenates = this.args.split(" ").map(Number); //left-top--- right-bottom
 
  	this.vertices = [
  	coordenates[0], coordenates[3], 0,
@@ -39,8 +39,6 @@
  	0,0,1,
  	0,0,1,
  	0,0,1,
-
-
  	];
 
  	this.originalTexCoords = [

@@ -31,7 +31,6 @@
 		this.cylinder.display();
  	this.scene.popMatrix();
 
-
   if(this.botCap == 1){
   		this.scene.pushMatrix();
    		this.scene.rotate(Math.PI, 0, 1, 0);
@@ -47,7 +46,4 @@
 		this.topCircle.display();
  		this.scene.popMatrix();
 	}
-
-
-
  };
