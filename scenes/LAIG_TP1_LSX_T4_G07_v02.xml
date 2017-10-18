@@ -96,7 +96,7 @@
     <!-- Wooden floor -->
     <TEXTURE id="wooden">
         <file path="images/wooden.jpg" />
-        <amplif_factor s="1" t="1" />
+        <amplif_factor s="0.5" t="0.5" />
     </TEXTURE>
 
      <!-- Blue wall -->
@@ -107,7 +107,7 @@
 
     <TEXTURE id="space">
         <file path="images/spacejam.jpg" />
-        <amplif_factor s="12" t="12" />
+        <amplif_factor s="8" t="12" />
     </TEXTURE>
 
     <TEXTURE id="wheel">
@@ -525,6 +525,7 @@
         <DESCENDANTS>
             <NODEREF id="satellite" />
             <NODEREF id="cable2" />
+            <NODEREF id="parabole" />
         </DESCENDANTS>
 
     </NODE>
@@ -822,6 +823,43 @@
         </DESCENDANTS>
 
     </NODE>
+
+   
+    <NODE id="parabole">
+    	<MATERIAL id="null" />
+        <TEXTURE id="steel" />
+
+
+        <TRANSLATION x="6" y="4" z="-2" />
+       	<SCALE sx="0.5" sy="0.5" sz="0.5" />
+
+        <DESCENDANTS>
+        	<LEAF type="patch" args="2 3" >
+        		<CPLINE>
+        			<CPOINT xx="-2.0" yy="-2.5" zz="1.5" ww="1" />
+        			<CPOINT xx="-3.5" yy="-1.5" zz="1.5" ww="1" />
+        			<CPOINT xx="-3.5" yy="1.5" zz="1.5" ww="1" />
+        			<CPOINT xx="-2.0" yy="2.5" zz="1.5" ww="1" />
+        		</CPLINE>
+
+        		<CPLINE>
+        			<CPOINT xx="0" yy="-3.5" zz="2" ww="0.5" />
+        			<CPOINT xx="0" yy="-2.0" zz="5" ww="1" />
+        			<CPOINT xx="0" yy="2.0" zz="5" ww="1" />
+        			<CPOINT xx="0" yy="3.5" zz="2" ww="0.5" />
+        		</CPLINE>
+
+        		<CPLINE>
+        			<CPOINT xx="2.0" yy="-2.5" zz="1.5" ww="1" />
+        			<CPOINT xx="3.5" yy="-1.5" zz="1.5" ww="1" />
+        			<CPOINT xx="3.5" yy="1.5" zz="1.5" ww="1" />
+        			<CPOINT xx="2.0" yy="2.5" zz="1.5" ww="1" />
+        		</CPLINE>
+        	</LEAF>
+
+        </DESCENDANTS>
+    </NODE>
+
 
 
 
