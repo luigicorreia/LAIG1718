@@ -32,7 +32,7 @@ function MySphere(scene, args) {
  		for (var j = 0; j <= this.slices; ++j) {
  			this.vertices.push(this.radius * Math.sin(i * ang1) * Math.cos(j * ang2), this.radius * Math.sin(i * ang1) * Math.sin(j * ang2), this.radius * Math.cos(i * ang1));
  			this.normals.push(Math.sin(i * ang1) * Math.cos(j * ang2), Math.sin(i * ang1) * Math.sin(j * ang2), Math.cos(i * ang1));
- 			this.texCoords.push(j/this.slices, 1-i/this.stacks);
+ 			this.texCoords.push(1-j/this.slices, 1-i/this.stacks);
  		}
  	}
 
