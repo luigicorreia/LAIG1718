@@ -42,10 +42,10 @@
  	];
 
  	this.originalTexCoords = [
-        0,0,
-        Math.abs(coordenates[2]-coordenates[0]),0,
         0,Math.abs(coordenates[3]-coordenates[1]),
-        Math.abs(coordenates[2]-coordenates[0]),Math.abs(coordenates[3]-coordenates[1])
+        Math.abs(coordenates[2]-coordenates[0]),Math.abs(coordenates[3]-coordenates[1]),
+        0,0,
+        Math.abs(coordenates[2]-coordenates[0]),0        
     ];
 
     this.texCoords = this.originalTexCoords.slice();

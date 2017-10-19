@@ -46,12 +46,13 @@
 		N[0], N[1], N[2],
     ];
 
-  var tC = (vec3.sqrLen(AB) + vec3.sqrLen(AC) - vec3.sqrLen(BC))/ (vec3.length(AB) * 2);
-	var sC = Math.sqrt(vec3.sqrLen(AC) - tC * tC);
+  var cosB = vec3.dot(AB,BC)/(vec3.length(AB)*vec3.length(BC));
+//  var tC = (vec3.sqrLen(AB) + vec3.sqrLen(AC) - vec3.sqrLen(BC))/ (vec3.length(AB) * 2);
+	//var sC = Math.sqrt(vec3.sqrLen(AC) - tC * tC);
   this.originalTexCoords = [
-		0,0,
-		vec3.length(AB),0,
-		sC, tC
+		0,1,
+		vec3.length(AB),1,
+		vec3.length(AB)-vec3.length(BC)*cosB, 1-vec3.length(BC)*Math.sqrt(1-(Math.pow(cosB,2)))
 	];
 
 	this.texCoords = this.originalTexCoords.slice();
