@@ -2,7 +2,7 @@
 
 <!-- Initial values -->
 <INITIALS>
-    <frustum near="0.1" far="500"/>
+    <frustum near="0.5" far="500"/>
     <translation x="-1" y="1" z="0" />
     <rotation axis="x" angle="0" />
     <rotation axis="y" angle="0" />
@@ -92,6 +92,10 @@
         <amplif_factor s="1" t="1" />
     </TEXTURE>
 
+     <TEXTURE id="gold">
+        <file path="images/gold.jpg" />
+        <amplif_factor s="1" t="1" />
+    </TEXTURE>
 
     <!-- Wooden floor -->
     <TEXTURE id="wooden">
@@ -123,6 +127,21 @@
     <TEXTURE id="usa">
     	<file path="images/usa.jpg" />
     	<amplif_factor s="5" t="4" />
+    </TEXTURE>
+
+     <TEXTURE id="wall">
+    	<file path="images/wall.jpg" />
+    	<amplif_factor s="1" t="1" />
+    </TEXTURE> 
+
+     <TEXTURE id="door">
+    	<file path="images/door.png" />
+    	<amplif_factor s="10" t="8" />
+    </TEXTURE>
+
+     <TEXTURE id="red_carpet">
+    	<file path="images/red_carpet.jpg" />
+    	<amplif_factor s="2" t="2" />
     </TEXTURE> 
 
 
@@ -186,6 +205,14 @@
         <emission r="0.0" g="0.0" b="0.0" a="1" />
     </MATERIAL>
 
+    <MATERIAL id="red">
+        <shininess value="1" />
+        <specular r="0.0" g="0.0" b="0.0" a="1" />
+        <diffuse r="0.8" g="0" b="0.1" a="1" />
+        <ambient r="0.8" g="0" b="0.1" a="1" />
+        <emission r="0.0" g="0.0" b="0.0" a="1" />
+    </MATERIAL>
+
 </MATERIALS>
 
 
@@ -212,11 +239,22 @@
             <NODEREF id="walls" />
             <NODEREF id="rover" />
             <NODEREF id="moon_expo" />
+            <NODEREF id="youshallnotpass" />
         </DESCENDANTS>
 
     </NODE>
 
     <NODE id="floor">
+    	<MATERIAL id="null" />
+    	<TEXTURE id="null" />
+
+    	<DESCENDANTS>
+    		<NODEREF id="pavement" />
+    		<NODEREF id="carpet" />
+       	</DESCENDANTS>
+    </NODE>
+
+    <NODE id="pavement">
         <MATERIAL id="null" />
         <TEXTURE id="wooden" />
 
@@ -230,22 +268,37 @@
 
     </NODE>
 
+    <NODE id="carpet">
+    	 <MATERIAL id="null" />
+        <TEXTURE id="red_carpet" />
+
+        
+        <TRANSLATION x="0" y="0.01" z="31" />
+        <ROTATION axis="x" angle="-90" />
+
+        <DESCENDANTS>
+            <LEAF  type="rectangle" args="0 10 50 0" />
+        </DESCENDANTS>
+
+    </NODE>
+
 
     <!-- Walls node -->
     <NODE id="walls">
         <MATERIAL id="null" />
-        <TEXTURE id= "space"/>
+        <TEXTURE id= "null"/>
 
         <DESCENDANTS>
             <NODEREF id="wall1" />
             <NODEREF id="wall2" />
+            <NODEREF id="door" />
         </DESCENDANTS>
     </NODE>
 
 
     <NODE id="wall1">
         <MATERIAL id="null" />
-        <TEXTURE id="null"/>
+        <TEXTURE id="space"/>
 
         <SCALE sx="10" sy="3.5" sz="5" />
         <ROTATION axis="x" angle="0" />
@@ -257,7 +310,7 @@
 
      <NODE id="wall2">
         <MATERIAL id="null" />
-        <TEXTURE id="null"/>
+        <TEXTURE id="wall"/>
 
 
         <SCALE sx="5" sy="2.8" sz="8" />
@@ -267,6 +320,19 @@
 
         <DESCENDANTS>
             <LEAF type="rectangle" args="0 4 5 0" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="door">
+    	<MATERIAL id="null" />
+    	<TEXTURE id="door" />
+
+    	<TRANSLATION x="0.02" y="0" z="22" />
+    	<ROTATION axis="z" angle="90" />
+        <ROTATION axis="x" angle="90" />
+
+        <DESCENDANTS>
+            <LEAF type="rectangle" args="0 8 10 0" />
         </DESCENDANTS>
     </NODE>
 
@@ -307,7 +373,7 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-         
+         <TRANSLATION x="15" y="0" z="0" />
 
         <DESCENDANTS>
             <NODEREF id="sun" />
@@ -533,14 +599,13 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-        <TRANSLATION x="4" y="10" z="4" />
+        <TRANSLATION x="8" y="8" z="4" />
 
         <DESCENDANTS>
             <NODEREF id="satellite" />
             <NODEREF id="cable2" />
             <NODEREF id="parabole_outside" />
             <NODEREF id="parabole_inside" />
-
         </DESCENDANTS>
 
     </NODE>
@@ -603,6 +668,7 @@
         <DESCENDANTS>
             <NODEREF id="satellite_cable1" />
             <NODEREF id="satellite_cable2" />
+            <NODEREF id="satellite_cable3" />
         </DESCENDANTS>
     </NODE>
 
@@ -633,6 +699,17 @@
         <DESCENDANTS>
             <LEAF id="cylinder4" type="cylinder" args="3 1 1 20 20" />
         </DESCENDANTS>
+    </NODE>
+
+    <NODE id="satellite_cable3">
+    	<MATERIAL id="null" />
+    	<TEXTURE id="null" />
+
+    	<TRANSLATION x="0" y="0" z="-2.5" />
+
+    	<DESCENDANTS>
+    		<LEAF type="cylinder" args="3 1 0.5 20 20" />
+    	</DESCENDANTS>
     </NODE>
 
 
@@ -826,6 +903,7 @@
          </DESCENDANTS>
     </NODE>
 
+
     <!-- Generic cable -->
     <NODE id="cable">
         <MATERIAL id="null" />
@@ -911,6 +989,12 @@
         </DESCENDANTS>
     </NODE>
 
+
+
+
+
+    <!-- MOON EXPO -->
+
     <NODE id="moon_expo">
     	<MATERIAL id="null" />
     	<TEXTURE id="null" />
@@ -993,6 +1077,245 @@
 
 
 
+
+
+    <NODE id="youshallnotpass">
+    	<MATERIAL id="null" />
+    	<TEXTURE id="null" />
+
+    	<DESCENDANTS>
+    		<NODEREF id="barriers" />
+    		<NODEREF id="barriers_2" />
+    		<NODEREF id="barriers_3" />
+    		<NODEREF id="barriers_4" />
+    		<NODEREF id="barriers_5" />
+    		<NODEREF id="barriers_6" />
+    		<NODEREF id="barriers_7" />
+    	</DESCENDANTS>
+    </NODE>
+
+    <NODE id="barriers_7">
+    	<MATERIAL id="null" />
+    	<TEXTURE id="null" />
+
+    	<TRANSLATION x="6.4" y="0" z="0" />
+
+    	<DESCENDANTS>
+    		<NODEREF id="barriers_6" />
+    	</DESCENDANTS>
+    </NODE>
+
+    <NODE id="barriers_6">
+    	<MATERIAL id="null" />
+    	<TEXTURE id="null" />
+
+    	<TRANSLATION x="6.4" y="0" z="0" />
+
+    	<DESCENDANTS>
+    		<NODEREF id="barriers_5" />
+    	</DESCENDANTS>
+    </NODE>
+
+ 	<NODE id="barriers_5">
+    	<MATERIAL id="null" />
+    	<TEXTURE id="null" />
+
+    	<TRANSLATION x="6.4" y="0" z="0" />
+
+    	<DESCENDANTS>
+    		<NODEREF id="barriers_4" />
+    	</DESCENDANTS>
+    </NODE>
+
+    <NODE id="barriers_4">
+    	<MATERIAL id="null" />
+    	<TEXTURE id="null" />
+
+    	<TRANSLATION x="6.4" y="0" z="0" />
+
+    	<DESCENDANTS>
+    		<NODEREF id="barriers_3" />
+    	</DESCENDANTS>
+    </NODE>
+
+     <NODE id="barriers_3">
+    	<MATERIAL id="null" />
+    	<TEXTURE id="null" />
+
+    	<TRANSLATION x="6.4" y="0" z="0" />
+
+    	<DESCENDANTS>
+    		<NODEREF id="barriers_2" />
+    	</DESCENDANTS>
+    </NODE>
+
+    <NODE id="barriers_2">
+    	<MATERIAL id="null" />
+    	<TEXTURE id="null" />
+
+    	<TRANSLATION x="6.4" y="0" z="0" />
+
+    	<DESCENDANTS>
+    		<NODEREF id="barriers" />
+    	</DESCENDANTS>
+    </NODE>
+
+    <NODE id="barriers">
+    	<MATERIAL id="null"/>
+    	<TEXTURE id="null" />
+
+    	<TRANSLATION x="1.5" y="0" z="19" />
+
+    	<DESCENDANTS>
+    		<NODEREF id="barrier" />
+    		<NODEREF id="barrier_support" />
+    		<NODEREF id="barrier_support2" />
+    	</DESCENDANTS>
+    </NODE>
+
+    <NODE id="barrier">
+    	<MATERIAL id="red" />
+    	<TEXTURE id="null" />
+
+
+    	<TRANSLATION x="3.2" y="3.5" z="0" />
+    	<SCALE sx="0.3" sy="0.1" sz="0.15" />
+    	<ROTATION axis="x" angle="-90" />
+
+    	<DESCENDANTS>
+    		<NODEREF id="barrier_up" />
+    		<NODEREF id="barrier_down" />
+    	</DESCENDANTS>
+    </NODE>
+
+    <NODE id="barrier_up">
+    	<MATERIAL id="null"/>
+    	<TEXTURE id="null" />
+
+    	<DESCENDANTS>
+    		<LEAF type="patch" args="2 3" >
+    			
+    			<CPLINE>
+    				<CPOINT xx="-10.0" yy="-2.0" zz="1.0" ww="1" />
+    				<CPOINT xx="-10.0" yy="-1.0" zz="5.0" ww="1" />
+    				<CPOINT xx="-10.0" yy="1.0" zz="5.0" ww="1" />
+    				<CPOINT xx="-10.0" yy="2.0" zz="1.0" ww="1" />
+    			</CPLINE>
+    			
+
+    			<CPLINE>
+    				<CPOINT xx="0" yy="-2.0" zz="0" ww="1" />
+    				<CPOINT xx="0" yy="-1.0" zz="-3.5" ww="1" />
+    				<CPOINT xx="0" yy="1.0" zz="-3.5" ww="1" />
+    				<CPOINT xx="0" yy="2.0" zz="0" ww="1" />
+    			</CPLINE>
+
+    			<CPLINE>
+    				<CPOINT xx="10.0" yy="-2.0" zz="1.0" ww="1" />
+    				<CPOINT xx="10.0" yy="-1.0" zz="5.0" ww="1" />
+    				<CPOINT xx="10.0" yy="1.0" zz="5.0" ww="1" />
+    				<CPOINT xx="10.0" yy="2.0" zz="1.0" ww="1" />
+    			</CPLINE>
+
+    		</LEAF>
+
+    	</DESCENDANTS>
+    </NODE>
+
+     <NODE id="barrier_down">
+    	<MATERIAL id="null"/>
+    	<TEXTURE id="null" />
+
+
+    	<DESCENDANTS>
+    		<LEAF type="patch" args="2 3" >
+    			
+    			<CPLINE>
+    				<CPOINT xx="10.0" yy="-2.0" zz="1.0" ww="1" />
+    				<CPOINT xx="10.0" yy="-1.0" zz="0.0" ww="1" />
+    				<CPOINT xx="10.0" yy="1.0" zz="0.0" ww="1" />
+    				<CPOINT xx="10.0" yy="2.0" zz="1.0" ww="1" />
+    			</CPLINE>
+    		
+
+    			<CPLINE>
+    				<CPOINT xx="0" yy="-2.0" zz="0" ww="1" />
+    				<CPOINT xx="0" yy="-1.0" zz="-6.5" ww="1" />
+    				<CPOINT xx="0" yy="1.0" zz="-6.5" ww="1" />
+    				<CPOINT xx="0" yy="2.0" zz="0" ww="1" />
+    			</CPLINE>
+
+    			<CPLINE>
+    				<CPOINT xx="-10.0" yy="-2.0" zz="1.0" ww="1" />
+    				<CPOINT xx="-10.0" yy="-1.0" zz="0.0" ww="1" />
+    				<CPOINT xx="-10.0" yy="1.0" zz="0.0" ww="1" />
+    				<CPOINT xx="-10.0" yy="2.0" zz="1.0" ww="1" />
+    			</CPLINE>
+
+    			
+    		</LEAF>
+
+    	</DESCENDANTS>
+    </NODE>
+
+
+    <NODE id="barrier_support2">
+    	<MATERIAL id="null" />
+    	<TEXTURE id="gold" />
+
+    	<TRANSLATION x="6.4" y="0" z="0" />
+
+    	<DESCENDANTS>
+    		<NODEREF id="barrier_support" />
+    	</DESCENDANTS>
+    </NODE>
+
+    <NODE id="barrier_support">
+    	<MATERIAL id="null" />
+    	<TEXTURE id="gold" />
+
+    	<DESCENDANTS>
+    		<NODEREF id="column" />
+    		<NODEREF id="top_sphere" />
+    		<NODEREF id="column_base" />
+    	</DESCENDANTS>
+    </NODE>
+
+    <NODE id="column">
+    	<MATERIAL id="null" />
+    	<TEXTURE id="null" />
+
+    	<ROTATION axis="x" angle="-90" />
+
+    	<DESCENDANTS>
+    		<LEAF type="cylinder" args="5 0.25 0.25 20 20 0 0"/>
+    	</DESCENDANTS>
+    </NODE>
+
+    <NODE id="top_sphere">
+    	<MATERIAL id="null" />
+    	<TEXTURE id="null" />
+
+    	<TRANSLATION x="0" y="5" z="0" />
+
+    	<DESCENDANTS>
+    		<LEAF type="sphere" args="0.5 50 50" />
+    	</DESCENDANTS>
+    </NODE>
+
+    <NODE id="column_base">
+    	<MATERIAL id="null" />
+    	<TEXTURE id="null" />
+
+    	<ROTATION axis="x" angle="-90" />
+
+    	<DESCENDANTS>
+    		<LEAF type="cylinder" args="0.2 0.7 0.7 20 20 1 0"/>
+    	</DESCENDANTS>
+
+    </NODE>
+
+   		
 
     </NODES>
 </SCENE>
