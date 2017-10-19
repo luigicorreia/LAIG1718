@@ -15,7 +15,7 @@
 <!-- Illumination and clear colour -->
 <ILLUMINATION>
     <ambient r="0.2" g="0.2" b="0.2" a="1" />
-    <background r="0" g="0" b="0" a="1" />
+    <background r="0.13" g="0" b="0.45" a="1" />
 </ILLUMINATION>
 
 
@@ -23,7 +23,7 @@
 <LIGHTS>
 	<LIGHT id="light0">
         <enable value ="1" />
-        <position  x="0" y="10" z="0" w="1" />
+        <position  x="0" y="10" z="0" w="0" />
         <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
         <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
         <specular r="1.0" g="1.0" b="1.0" a="1.0" />
@@ -115,6 +115,16 @@
         <amplif_factor s="1" t="1" />
     </TEXTURE>
 
+    <TEXTURE id="moon">
+    	<file path="images/moon.jpg" />
+    	<amplif_factor s="1" t="1" />
+    </TEXTURE>
+
+    <TEXTURE id="usa">
+    	<file path="images/usa.jpg" />
+    	<amplif_factor s="5" t="4" />
+    </TEXTURE> 
+
 
 
 
@@ -201,6 +211,7 @@
             <NODEREF id="sun_model" />
             <NODEREF id="walls" />
             <NODEREF id="rover" />
+            <NODEREF id="moon_expo" />
         </DESCENDANTS>
 
     </NODE>
@@ -209,7 +220,7 @@
         <MATERIAL id="null" />
         <TEXTURE id="wooden" />
 
-        <SCALE sx="6" sy="1" sz="5" />
+        <SCALE sx="10" sy="1" sz="8" />
         <TRANSLATION x="0" y="0" z="4" />
         <ROTATION axis="x" angle="-90" />
 
@@ -236,7 +247,7 @@
         <MATERIAL id="null" />
         <TEXTURE id="null"/>
 
-        <SCALE sx="6" sy="3.5" sz="5" />
+        <SCALE sx="10" sy="3.5" sz="5" />
         <ROTATION axis="x" angle="0" />
 
         <DESCENDANTS>
@@ -249,7 +260,7 @@
         <TEXTURE id="null"/>
 
 
-        <SCALE sx="6" sy="2.8" sz="5" />
+        <SCALE sx="5" sy="2.8" sz="8" />
         <ROTATION axis="z" angle="90" />
         <ROTATION axis="x" angle="90" />
 
@@ -295,6 +306,8 @@
     <NODE id="sun_model">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
+
+         
 
         <DESCENDANTS>
             <NODEREF id="sun" />
@@ -525,7 +538,9 @@
         <DESCENDANTS>
             <NODEREF id="satellite" />
             <NODEREF id="cable2" />
-            <NODEREF id="parabole" />
+            <NODEREF id="parabole_outside" />
+            <NODEREF id="parabole_inside" />
+
         </DESCENDANTS>
 
     </NODE>
@@ -825,7 +840,7 @@
     </NODE>
 
    
-    <NODE id="parabole">
+    <NODE id="parabole_outside">
     	<MATERIAL id="null" />
         <TEXTURE id="steel" />
 
@@ -843,10 +858,10 @@
         		</CPLINE>
 
         		<CPLINE>
-        			<CPOINT xx="0" yy="-3.5" zz="2" ww="0.5" />
+        			<CPOINT xx="0" yy="-4.5" zz="2" ww="0.5" />
         			<CPOINT xx="0" yy="-2.0" zz="5" ww="1" />
         			<CPOINT xx="0" yy="2.0" zz="5" ww="1" />
-        			<CPOINT xx="0" yy="3.5" zz="2" ww="0.5" />
+        			<CPOINT xx="0" yy="4.5" zz="2" ww="0.5" />
         		</CPLINE>
 
         		<CPLINE>
@@ -859,6 +874,122 @@
 
         </DESCENDANTS>
     </NODE>
+
+    <NODE id="parabole_inside">
+    	<MATERIAL id="null" />
+        <TEXTURE id="steel" />
+
+
+        <TRANSLATION x="6" y="4" z="-2" />
+       	<SCALE sx="0.5" sy="0.5" sz="0.5" />
+
+        <DESCENDANTS>
+        	<LEAF type="patch" args="2 3" >
+
+        		<CPLINE>
+        			<CPOINT xx="2.0" yy="-2.5" zz="1.5" ww="1" />
+        			<CPOINT xx="3.5" yy="-1.5" zz="1.5" ww="1" />
+        			<CPOINT xx="3.5" yy="1.5" zz="1.5" ww="1" />
+        			<CPOINT xx="2.0" yy="2.5" zz="1.5" ww="1" />
+        		</CPLINE>
+
+        		<CPLINE>
+        			<CPOINT xx="0" yy="-4.5" zz="2" ww="0.5" />
+        			<CPOINT xx="0" yy="-2.0" zz="5" ww="1" />
+        			<CPOINT xx="0" yy="2.0" zz="5" ww="1" />
+        			<CPOINT xx="0" yy="4.5" zz="2" ww="0.5" />
+        		</CPLINE>
+
+        		<CPLINE>
+        			<CPOINT xx="-2.0" yy="-2.5" zz="1.5" ww="1" />
+        			<CPOINT xx="-3.5" yy="-1.5" zz="1.5" ww="1" />
+        			<CPOINT xx="-3.5" yy="1.5" zz="1.5" ww="1" />
+        			<CPOINT xx="-2.0" yy="2.5" zz="1.5" ww="1" />
+        		</CPLINE>
+        	</LEAF>
+
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="moon_expo">
+    	<MATERIAL id="null" />
+    	<TEXTURE id="null" />
+
+    	<TRANSLATION x="22" y="0" z="9" />
+
+    	<DESCENDANTS>
+    		<NODEREF id="moon_suface" />
+    		<NODEREF id="flag" />
+    	</DESCENDANTS>
+    </NODE>
+
+    <NODE id="moon_suface">
+    	<MATERIAL id="null" />
+    	<TEXTURE id="moon" />
+
+    	<TRANSLATION x="0" y="-2.3" z="0" />
+    	<ROTATION axis="x" angle="-90" />
+    	<SCALE sx="1.5" sy="1.5" sz="1.5" />
+
+        <DESCENDANTS>
+        	<LEAF type="patch" args="2 3" >
+        		<CPLINE>
+        			<CPOINT xx="-2.0" yy="-2.5" zz="1.5" ww="1" />
+        			<CPOINT xx="-3.5" yy="-1.5" zz="1.5" ww="1" />
+        			<CPOINT xx="-3.5" yy="1.5" zz="1.5" ww="1" />
+        			<CPOINT xx="-2.0" yy="2.5" zz="1.5" ww="1" />
+        		</CPLINE>
+
+        		<CPLINE>
+        			<CPOINT xx="0" yy="-4.5" zz="2" ww="0.5" />
+        			<CPOINT xx="0" yy="-2.0" zz="4" ww="1" />
+        			<CPOINT xx="0" yy="2.0" zz="4" ww="1" />
+        			<CPOINT xx="0" yy="4.5" zz="2" ww="0.5" />
+        		</CPLINE>
+
+        		<CPLINE>
+        			<CPOINT xx="2.0" yy="-2.5" zz="1.5" ww="1" />
+        			<CPOINT xx="3.5" yy="-1.5" zz="1.5" ww="1" />
+        			<CPOINT xx="3.5" yy="1.5" zz="1.5" ww="1" />
+        			<CPOINT xx="2.0" yy="2.5" zz="1.5" ww="1" />
+        		</CPLINE>
+        	</LEAF>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="flag">
+    	<MATERIAL id="null" />
+    	<TEXTURE id="null" />
+
+    	<DESCENDANTS>
+    		<NODEREF id="support" />
+    		<NODEREF id="america" />
+    	</DESCENDANTS>
+    </NODE>
+
+    <NODE id="america">
+    	<MATERIAL id="null" />
+    	<TEXTURE id="usa" />
+
+    	<TRANSLATION x="0" y="3" z="0" />
+    	<SCALE sx="0.6" sy="0.6" sz="0.6" />
+
+    	<DESCENDANTS>
+    		<LEAF type="rectangle" args="0 3 5 0" />
+    	</DESCENDANTS>
+    </NODE>
+
+     <NODE id="support">
+    	<MATERIAL id="null" />
+    	<TEXTURE id="steel" />
+
+        <ROTATION axis="x" angle="-90" />
+
+    	<DESCENDANTS>
+    		<LEAF type="cylinder" args="5 0.10 0.10 20 20 1 1" />
+    	</DESCENDANTS>
+    </NODE>
+
 
 
 
