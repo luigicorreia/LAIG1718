@@ -29,15 +29,15 @@
 	var v2 = vec3.fromValues(coordenates[3], coordenates[4], coordenates[5]);
 	var v3 = vec3.fromValues(coordenates[6], coordenates[7], coordenates[8]);
 
-  var AB = vec3.create();
-	vec3.sub(AB,v2, v1);
-	var AC = vec3.create();
-	vec3.sub(AC, v3, v1);
-	var BC = vec3.create();
-	vec3.sub(BC, v3, v2);
+  this.AB = vec3.create();
+	vec3.sub(this.AB,v2, v1);
+	this.AC = vec3.create();
+	vec3.sub(this.AC, v3, v1);
+	this.BC = vec3.create();
+	vec3.sub(this.BC, v3, v2);
 
 	var N = vec3.create();
-	vec3.cross(N, AB, BC);
+	vec3.cross(N, this.AB, this.BC);
 	vec3.normalize(N, N);
 
 	this.normals = [
@@ -46,13 +46,14 @@
 		N[0], N[1], N[2],
     ];
 
-  var cosB = vec3.dot(AB,BC)/(vec3.length(AB)*vec3.length(BC));
-//  var tC = (vec3.sqrLen(AB) + vec3.sqrLen(AC) - vec3.sqrLen(BC))/ (vec3.length(AB) * 2);
-	//var sC = Math.sqrt(vec3.sqrLen(AC) - tC * tC);
+
+  var tC = (vec3.sqrLen(this.AB) + vec3.sqrLen(this.AC) - vec3.sqrLen(this.BC))/ (vec3.length(this.AB) * 2);
+	var sC = Math.sqrt(vec3.sqrLen(this.AC) - tC * tC);
+  
   this.originalTexCoords = [
-		0,1,
-		vec3.length(AB),1,
-		vec3.length(AB)-vec3.length(BC)*cosB, 1-vec3.length(BC)*Math.sqrt(1-(Math.pow(cosB,2)))
+		0,0,
+		vec3.length(this.AB),0,
+    sC,tC
 	];
 
 	this.texCoords = this.originalTexCoords.slice();
@@ -63,9 +64,12 @@
 
  MyTriangle.prototype.scaleTexCoordss = function(s, t) {
 
-   for (var i = 0; i < this.texCoords.length; i += 2) {
- 		this.texCoords[i] = this.originalTexCoords[i] / s;
- 		this.texCoords[i + 1] = this.originalTexCoords[i+1] / t;
- 	}
+var cosB = vec3.dot(this.AB,this.BC)/(vec3.length(this.AB)*vec3.length(this.BC));
+
+this.texCoords = [
+  0,1,
+  vec3.length(this.AB)/s,1,
+  (vec3.length(this.AB)-vec3.length(this.BC)*cosB)/s, (1-vec3.length(this.BC)*Math.sqrt(1-(Math.pow(cosB,2))))/t
+];
  	this.updateTexCoordsGLBuffers();
 }
