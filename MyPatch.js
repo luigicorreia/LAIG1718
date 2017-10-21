@@ -22,10 +22,9 @@ function MyPatch(scene, args) {
     }
     this.points.push(aux);
   }
-	//this.init();
 	this.makeSurface(
-    parseFloat(this.uv[0]),
-    parseFloat(this.uv[1]),
+    this.points.length-1,
+    this.points[0].length-1,
     this.points
   );
 };
@@ -39,7 +38,7 @@ MyPatch.prototype.makeSurface = function(degree1, degree2, controlvertexes){
 	getSurfacePoint = function(u, v) {
 		return nurbsSurface.getPoint(u, v);
 	};
-  this.obj = new CGFnurbsObject(this.scene, getSurfacePoint, 20, 20 );
+  this.obj = new CGFnurbsObject(this.scene, getSurfacePoint,parseFloat(this.uv[0]), parseFloat(this.uv[1]) );
 }
 
 MyPatch.prototype.getKnotsVector = function(degree){
