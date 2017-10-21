@@ -154,6 +154,11 @@
         <amplif_factor s="5" t="10" />
     </TEXTURE>
 
+    <TEXTURE id="this_way">
+    	<file path="images/this_way.jpg" />
+        <amplif_factor s="9" t="2" /> 
+    </TEXTURE>
+
 
 
 
@@ -262,6 +267,7 @@
     	<DESCENDANTS>
     		<NODEREF id="pavement" />
     		<NODEREF id="carpet" />
+    		<NODEREF id="arrow" />
        	</DESCENDANTS>
     </NODE>
 
@@ -291,6 +297,17 @@
             <LEAF  type="rectangle" args="0 10 50 0" />
         </DESCENDANTS>
 
+    </NODE>
+
+    <NODE id="arrow">
+    	<MATERIAL id="null"/>
+    	<TEXTURE id="this_way" />
+
+    	<TRANSLATION x="1" y="0" z="23"/>
+
+    	<DESCENDANTS>
+    		<LEAF type="triangle" args="0 0.05 -0.5 0 0.05 6.5 5 0.05 3" />
+    	</DESCENDANTS>
     </NODE>
 
 
@@ -943,7 +960,7 @@
        	<SCALE sx="0.5" sy="0.5" sz="0.5" />
 
         <DESCENDANTS>
-        	<LEAF type="patch" args="2 3" >
+        	<LEAF type="patch" args="10 15" >
         		<CPLINE>
         			<CPOINT xx="-2.0" yy="-2.5" zz="1.5" ww="1" />
         			<CPOINT xx="-3.5" yy="-1.5" zz="1.5" ww="1" />
@@ -978,7 +995,7 @@
        	<SCALE sx="0.5" sy="0.5" sz="0.5" />
 
         <DESCENDANTS>
-        	<LEAF type="patch" args="2 3" >
+        	<LEAF type="patch" args="2 10" >
 
         		<CPLINE>
         			<CPOINT xx="2.0" yy="-2.5" zz="1.5" ww="1" />
@@ -1032,7 +1049,7 @@
     	<SCALE sx="1.5" sy="1.5" sz="1.5" />
 
         <DESCENDANTS>
-        	<LEAF type="patch" args="2 3" >
+        	<LEAF type="patch" args="2 10" >
         		<CPLINE>
         			<CPOINT xx="-2.0" yy="-2.5" zz="1.5" ww="1" />
         			<CPOINT xx="-3.5" yy="-1.5" zz="1.5" ww="1" />
@@ -1209,7 +1226,7 @@
     	<TEXTURE id="null" />
 
     	<DESCENDANTS>
-    		<LEAF type="patch" args="2 3" >
+    		<LEAF type="patch" args="5 15" >
     			
     			<CPLINE>
     				<CPOINT xx="-10.0" yy="-2.0" zz="1.0" ww="1" />
@@ -1244,7 +1261,7 @@
 
 
     	<DESCENDANTS>
-    		<LEAF type="patch" args="2 3" >
+    		<LEAF type="patch" args="5 15" >
     			
     			<CPLINE>
     				<CPOINT xx="10.0" yy="-2.0" zz="1.0" ww="1" />
@@ -1441,7 +1458,7 @@
 
         
         <DESCENDANTS>
-            <LEAF type="patch" args="1 6" >
+            <LEAF type="patch" args="7 17" >
                 
                 <CPLINE>
                     <CPOINT xx="-1.4" yy="-1.5" zz="0" ww="1" />
@@ -1474,7 +1491,7 @@
 
         
         <DESCENDANTS>
-            <LEAF type="patch" args="1 6" >
+            <LEAF type="patch" args="7 17" >
                 <CPLINE>
                     <CPOINT xx="-1.8" yy="-1.5" zz="0" ww="1" />
                     <CPOINT xx="-1.7" yy="1.5" zz="0" ww="1" />
