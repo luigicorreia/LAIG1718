@@ -158,7 +158,7 @@
 
     <TEXTURE id="this_way">
     	<file path="images/this_way.jpg" />
-        <amplif_factor s="9" t="2" /> 
+        <amplif_factor s="4" t="2" /> 
     </TEXTURE>
 
     <TEXTURE id="neil">
