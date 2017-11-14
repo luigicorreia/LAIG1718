@@ -6,8 +6,10 @@ var ILLUMINATION_INDEX = 1;
 var LIGHTS_INDEX = 2;
 var TEXTURES_INDEX = 3;
 var MATERIALS_INDEX = 4;
-var LEAVES_INDEX = 5;
-var NODES_INDEX = 6;
+var ANIMATIONS_INDEX = 5;
+var LEAVES_INDEX = 6;
+var NODES_INDEX = 7;
+
 
 /**
  * MySceneGraph class, representing the scene graph.
@@ -136,6 +138,17 @@ MySceneGraph.prototype.parseLSXFile = function(rootElement) {
             this.onXMLMinorError("tag <MATERIALS> out of order");
 
         if ((error = this.parseMaterials(nodes[index])) != null )
+            return error;
+    }
+
+    // <ANIMATIONS>
+    if ((index = nodeNames.indexOf("ANIMATIONS")) == -1)
+        return "tag <ANIMATIONS> missing";
+    else {
+        if (index != ANIMATIONS_INDEX)
+            this.onXMLMinorError("tag <ANIMATIONS> out of order");
+
+        if ((error = this.parseAnimations(nodes[index])) != null )
             return error;
     }
 
@@ -1158,6 +1171,107 @@ MySceneGraph.prototype.parseMaterials = function(materialsNode) {
     console.log("Parsed materials");
 }
 
+/**
+ * Parses the <ANIMATIONS> node.
+ */
+MySceneGraph.prototype.parseAnimations = function(animationsNode) {
+  var children = animationsNode.children;
+
+  this.animations = [];
+  this.animationsIds = [];
+
+  for(var i = 0; i < children.length; i++) {
+    if (children[i].nodeName != "ANIMATION") {
+        this.onXMLMinorError("unknown tag name <" + children[i].nodeName + ">");
+        continue;
+    }
+
+    var animationID = this.reader.getString(children[i], 'id');
+
+
+    if (animationID == null )
+        return "no ID defined for animation";
+
+    this.animationsIds.push(animationID);
+
+    if(this.animationsIds[animationID] != null)
+      return "ID must be unique for each animation (conflict: ID = " + animationID + ")";
+
+    var animationType = this.reader.getString(children[i], 'type');
+
+    var animationSpeed = this.reader.getFloat(children[i], 'speed');
+
+    if(animationSpeed == null && animationType != "combo")
+      return "no speed defined for animation";
+    else if(animationSpeed == null)
+      return "combo animation!";
+
+    if(animationSpeed < 0)
+      return "invalid value of speed in animation " + animationID;
+
+
+    var animationSpecs = children[i].children;
+
+    var nodeNames = [];
+
+    var controlPoints = [];
+
+    if(animationType == "linear"){
+
+        if(animationSpecs.length == 0)
+          return "Animation " + animationID + " needs control points";
+
+        for(var j = 0; j < animationSpecs.length; j++){
+          var controlPoint = [];
+          let x = this.reader.getFloat(animationSpecs[j], 'xx');
+          let y = this.reader.getFloat(animationSpecs[j], 'yy');
+          let z = this.reader.getFloat(animationSpecs[j], 'zz');
+
+          controlPoint.push(x);
+          controlPoint.push(y);
+          controlPoint.push(z);
+
+          controlPoints.push(controlPoint);
+        }
+
+      //  this.animations.push(new MyLinearAnimation(this.scene, controlPoints, animationSpeed));
+    }
+    else if(animationType == "circular"){
+      var centerx = this.reader.getFloat(children[i], 'centerx');
+      var centery = this.reader.getFloat(children[i], 'centery');
+      var centerz = this.reader.getFloat(children[i], 'centerz');
+      var radius = this.reader.getFloat(children[i], 'radius');
+
+      if(radius < 0)
+        return "invalid radius in " +  animationID ;
+
+      var startang = this.reader.getFloat(children[i], 'startang');
+      var rotang = this.reader.getFloat(children[i], 'rotang');
+    }
+    else if(animationType == "bezier"){
+      if(animationSpecs.length != 4)
+        return "wrong no of arguments in " + animationID;
+
+        for(var j = 0; j < animationSpecs.length; j++){
+          var controlPoint = [];
+          let x = this.reader.getFloat(animationSpecs[j], 'xx');
+          let y = this.reader.getFloat(animationSpecs[j], 'yy');
+          let z = this.reader.getFloat(animationSpecs[j], 'zz');
+
+          controlPoint.push(x);
+          controlPoint.push(y);
+          controlPoint.push(z);
+
+          controlPoints.push(controlPoint);
+        }
+    }
+    else if(animationType == "combo"){
+
+    }
+  }
+
+  console.log("Parsed animations");
+}
 
 /**
  * Parses the <NODES> block.
@@ -1166,6 +1280,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 
     // Traverses nodes.
     var children = nodesNode.children;
+    this.selectables = [];
 
     for (var i = 0; i < children.length; i++) {
         var nodeName;
@@ -1191,13 +1306,25 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 
             this.log("Processing node "+nodeID);
 
+            if(children[i].attributes.length == 2){
+              var selectable = this.reader.getString(children[i], 'selectable');
+              if(selectable == null || selectable == "false")
+                selectable = false;
+              else if(selectable == "true"){
+                selectable = true;
+                this.selectables.push(nodeID);
+              }
+              else
+                return "invalid selectable value";
+            }
             // Creates node.
+
             this.nodes[nodeID] = new MyGraphNode(this,nodeID);
 
             // Gathers child nodes.
             var nodeSpecs = children[i].children;
             var specsNames = [];
-            var possibleValues = ["MATERIAL", "TEXTURE", "TRANSLATION", "ROTATION", "SCALE", "DESCENDANTS"];
+            var possibleValues = ["MATERIAL", "TEXTURE", "TRANSLATION", "ROTATION", "SCALE", "DESCENDANTS", "ANIMATIONREFS"];
             for (var j = 0; j < nodeSpecs.length; j++) {
                 var name = nodeSpecs[j].nodeName;
                 specsNames.push(nodeSpecs[j].nodeName);
@@ -1310,6 +1437,18 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
                 default:
                     break;
                 }
+            }
+
+            var animationsIndex = specsNames.indexOf("ANIMATIONREFS");
+            if(animationsIndex == -1)
+              this.log("   No animation reference");
+            else{
+              var animationRefs = nodeSpecs[animationsIndex].children;
+
+              for(var z = 0; z < animationRefs.length; z++){
+                let id = this.reader.getString(animationRefs[z], 'id');
+                this.log("  Animation " + id + " ");
+              }
             }
 
             // Retrieves information about children.

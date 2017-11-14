@@ -3,10 +3,9 @@
  * @constructor
  */
 function MyInterface() {
-    //call CGFinterface constructor 
+    //call CGFinterface constructor
     CGFinterface.call(this);
-}
-;
+};
 
 MyInterface.prototype = Object.create(CGFinterface.prototype);
 MyInterface.prototype.constructor = MyInterface;
@@ -21,11 +20,13 @@ MyInterface.prototype.init = function(application) {
 
     // init GUI. For more information on the methods, check:
     //  http://workshop.chromeexperiments.com/examples/gui
-    
+
     this.gui = new dat.GUI();
 
     // add a group of controls (and open/expand by defult)
-    
+
+
+
     return true;
 };
 
@@ -48,3 +49,6 @@ MyInterface.prototype.addLightsGroup = function(lights) {
     }
 }
 
+MyInterface.prototype.addSelectables = function(selectables) {
+  this.gui.add(this.scene, "selectables", selectables);
+}
