@@ -96,7 +96,7 @@ XMLscene.prototype.onGraphLoaded = function()
     // Adds lights group.
     this.interface.addLightsGroup(this.graph.lights);
 
-    this.interface.addSelectables(this.graph.selectables);
+    this.interface.addSelectables(this.graph.selectables, this.graph);
 
 
 }

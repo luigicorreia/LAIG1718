@@ -1592,6 +1592,8 @@ MySceneGraph.prototype.transformationsdisplay = function(node,texturetmp,materia
 
     var textura  = texturetmp;
     var material = materialtmp;
+    this.activeSelectable;
+
 
     if(node.materialID != "null")  //se não tem material, mantém o material do nó pai
         material = this.materials[node.materialID];
@@ -1609,7 +1611,7 @@ MySceneGraph.prototype.transformationsdisplay = function(node,texturetmp,materia
 
     for(var i = 0; i < node.children.length; i++){  //faz recursividade dos nós
 
-           if(this.selectables.includes(node.nodeID)){
+           if(this.selectables.includes(node.nodeID) && this.selectables[this.activeSelectable] == node.nodeID){
              this.scene.setActiveShader(this.testShaders[6]);
              console.log("i'm here");
              ///textura.bind();
@@ -1636,7 +1638,7 @@ MySceneGraph.prototype.transformationsdisplay = function(node,texturetmp,materia
       // node.leaves[i].scaleTexCoords(this.textures[node.textureID][1],this.textures[node.textureID][2]);
      node.leaves[i].scaleTexCoords(s,t);
 
-     if(this.selectables.includes(node.nodeID)){
+     if(this.selectables.includes(node.nodeID) && this.selectables[this.activeSelectable] == node.nodeID){
        this.scene.setActiveShader(this.testShaders[6]);
        console.log("i'm here");
        ///textura.bind();
