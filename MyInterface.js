@@ -49,6 +49,13 @@ MyInterface.prototype.addLightsGroup = function(lights) {
     }
 }
 
-MyInterface.prototype.addSelectables = function(selectables) {
-  this.gui.add(this.scene, "selectables", selectables);
+MyInterface.prototype.addSelectables = function(selectables, graph) {
+  this.gui.add(this.scene, "selectables", selectables).onChange(function(v) {
+            for (var i = 0; i < selectables.length; i++) {
+                if (selectables[i] == v) {
+                    console.log("wow");
+                    graph.activeSelectable = i;
+                }
+            }
+        });
 }

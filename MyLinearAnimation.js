@@ -18,12 +18,10 @@ function MyLinearAnimation(scene, controlPoints, speed) extends MyAnimation {
   }
 
   this.velocity = this.totalDistance / this.speed;
-
 }
 
 MyLinearAnimation.prototype = Object.create(MyAnimation.prototype);
 MyLinearAnimation.prototype.constructor = MyLinearAnimation;
-
 MyLinearAnimation.prototype.update = function(time) {
 
 }

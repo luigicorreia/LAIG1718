@@ -41,6 +41,29 @@ function MySceneGraph(filename, scene) {
 	 */
 
     this.reader.open('scenes/' + filename, this);
+
+    this.scene.setUpdatePeriod(1/60*100);
+
+    this.scene.gl.clearColor(0,0,0, 1.0);
+    this.scene.gl.clearDepth(10000.0);
+    this.scene.gl.enable(this.scene.gl.DEPTH_TEST);
+    this.scene.gl.enable(this.scene.gl.CULL_FACE);
+    this.scene.gl.depthFunc(this.scene.gl.LEQUAL);
+
+    this.testShaders=[
+      new CGFshader(this.scene.gl, "shaders/flat.vert", "shaders/flat.frag"),
+      new CGFshader(this.scene.gl, "shaders/uScale.vert", "shaders/uScale.frag"),
+      new CGFshader(this.scene.gl, "shaders/texture1.vert", "shaders/texture1.frag"),
+      new CGFshader(this.scene.gl, "shaders/varying.vert", "shaders/varying.frag"),
+      new CGFshader(this.scene.gl, "shaders/texture2.vert", "shaders/texture2.frag"),
+      new CGFshader(this.scene.gl, "shaders/texture3.vert", "shaders/texture3.frag"),
+      new CGFshader(this.scene.gl, "shaders/texture3.vert", "shaders/sepia.frag"),
+      new CGFshader(this.scene.gl, "shaders/texture3.vert", "shaders/convolution.frag")
+    ];
+
+    // texture will have to be bound to unit 1 later, when using the shader, with "this.texture2.bind(1);"
+    this.testShaders[4].setUniformsValues({uSampler2: 1});
+    this.testShaders[5].setUniformsValues({uSampler2: 1});
 }
 
 /*
@@ -51,7 +74,6 @@ MySceneGraph.prototype.onXMLReady = function()
     console.log("XML Loading finished.");
     var rootElement = this.reader.xmlDoc.documentElement;
 
-    // Here should go the calls for different functions to parse the various blocks
     var error = this.parseLSXFile(rootElement);
 
     if (error != null ) {
@@ -1197,9 +1219,13 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
     if(this.animationsIds[animationID] != null)
       return "ID must be unique for each animation (conflict: ID = " + animationID + ")";
 
-    var animationType = this.reader.getString(children[i], 'type');
+    var animationType = this.reader.getItem(children[i], 'type', ['linear', 'circular', 'bezier', 'combo']);
 
     var animationSpeed = this.reader.getFloat(children[i], 'speed');
+
+
+    if(isNaN(animationSpeed))
+        return "Invalid speed in " + animationID;
 
     if(animationSpeed == null && animationType != "combo")
       return "no speed defined for animation";
@@ -1233,8 +1259,9 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
 
           controlPoints.push(controlPoint);
         }
-
-      //  this.animations.push(new MyLinearAnimation(this.scene, controlPoints, animationSpeed));
+        console.log(animationID + "," + animationSpeed + "," + controlPoints);
+        var newAnimation = new MyLinearAnimation(this.scene, animationID, animationSpeed, controlPoints);
+        this.animations[animationID] = newAnimation;
     }
     else if(animationType == "circular"){
       let center = [];
@@ -1552,6 +1579,7 @@ MySceneGraph.prototype.generateDefaultMaterial = function() {
 /**
  * Generates a random string of the specified length.
  */
+              //  if (possibleValues.indexOf(name) == -1)
 MySceneGraph.generateRandomString = function(length) {
     // Generates an array of random integer ASCII codes of the specified length
     // and returns a string of the specified length.
@@ -1569,6 +1597,8 @@ MySceneGraph.prototype.transformationsdisplay = function(node,texturetmp,materia
 
     var textura  = texturetmp;
     var material = materialtmp;
+    this.activeSelectable;
+
 
     if(node.materialID != "null")  //se não tem material, mantém o material do nó pai
         material = this.materials[node.materialID];
@@ -1585,7 +1615,18 @@ MySceneGraph.prototype.transformationsdisplay = function(node,texturetmp,materia
     this.scene.multMatrix(node.transformMatrix); // multiplica a matriz
 
     for(var i = 0; i < node.children.length; i++){  //faz recursividade dos nós
-        this.transformationsdisplay(this.nodes[node.children[i]],textura,material);
+
+           if(this.selectables.includes(node.nodeID) && this.selectables[this.activeSelectable] == node.nodeID){
+             this.scene.setActiveShader(this.testShaders[6]);
+             console.log("i'm here");
+             ///textura.bind();
+             this.transformationsdisplay(this.nodes[node.children[i]],textura,material);
+             this.scene.setActiveShader(this.scene.defaultShader);
+           }
+           else
+            this.transformationsdisplay(this.nodes[node.children[i]],textura,material);
+
+
     }
 
     for(var i = 0; i < node.leaves.length; i++){   //display das leaves
@@ -1598,9 +1639,20 @@ MySceneGraph.prototype.transformationsdisplay = function(node,texturetmp,materia
        var t = textura[2];
          textura[0].bind();     // aplica textura
        }
+
       // node.leaves[i].scaleTexCoords(this.textures[node.textureID][1],this.textures[node.textureID][2]);
      node.leaves[i].scaleTexCoords(s,t);
-     node.leaves[i].display();   //faz display das leaves
+
+     if(this.selectables.includes(node.nodeID) && this.selectables[this.activeSelectable] == node.nodeID){
+       this.scene.setActiveShader(this.testShaders[6]);
+       console.log("i'm here");
+       ///textura.bind();
+       node.leaves[i].display();
+       this.scene.setActiveShader(this.scene.defaultShader);
+     }
+     else {
+       node.leaves[i].display();
+     }   //faz display das leaves
     }
 
     this.scene.popMatrix();

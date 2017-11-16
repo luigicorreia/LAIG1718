@@ -3,6 +3,7 @@
 * @constructor
 */
 
-function MyAnimation(scene){
+function MyAnimation(scene, id, speed){
 }
 
+MyAnimation.prototype.constructor = MyAnimation;

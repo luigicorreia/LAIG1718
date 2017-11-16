@@ -317,7 +317,7 @@
 
     </NODE>
 
-    <NODE id="carpet">
+    <NODE id="carpet" selectable="true">
     	 <MATERIAL id="null" />
         <TEXTURE id="red_carpet" />
 
@@ -515,7 +515,7 @@
 
 
     <!-- Earth model node -->
-    <NODE id="earth_model">
+    <NODE id="earth_model" selectable="true">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
