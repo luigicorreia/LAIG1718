@@ -60,7 +60,7 @@ function MySceneGraph(filename, scene) {
       new CGFshader(this.scene.gl, "shaders/texture2.vert", "shaders/texture2.frag"),
       new CGFshader(this.scene.gl, "shaders/texture3.vert", "shaders/texture3.frag"),
       new CGFshader(this.scene.gl, "shaders/texture3.vert", "shaders/sepia.frag"),
-      new CGFshader(this.scene.gl, "shaders/texture3.vert", "shaders/convolution.frag")
+      new CGFshader(this.scene.gl, "shaders/texture3.vert", "shaders/convolution.frag"),
     ];
 
     // texture will have to be bound to unit 1 later, when using the shader, with "this.texture2.bind(1);"
@@ -1600,8 +1600,8 @@ MySceneGraph.prototype.transformationsdisplay = function(node,texturetmp,materia
     var textura  = texturetmp;
     var material = materialtmp;
     this.activeSelectable ;
-    var activeShader = this.testShaders[1];
-
+    this.activeShader = this.testShaders[1];
+    this.activeShader.setUniformsValues({normScale: (10*(Math.sin(this.scene.totalTime/1000)+1)) * 0.7});
 
     if(node.materialID != "null")  //se não tem material, mantém o material do nó pai
         material = this.materials[node.materialID];
@@ -1618,10 +1618,8 @@ MySceneGraph.prototype.transformationsdisplay = function(node,texturetmp,materia
     this.scene.multMatrix(node.transformMatrix); // multiplica a matriz
 
     for(var i = 0; i < node.children.length; i++){  //faz recursividade dos nós
-
            if(this.selectables.includes(node.nodeID) && this.selectables[this.activeSelectable] == node.nodeID){
-             activeShader.setUniformsValues({normScale: 4});
-             this.scene.setActiveShader(activeShader);
+             this.scene.setActiveShader(this.activeShader);
              console.log("i'm here");
              ///textura.bind();
              this.transformationsdisplay(this.nodes[node.children[i]],textura,material);
@@ -1650,8 +1648,8 @@ MySceneGraph.prototype.transformationsdisplay = function(node,texturetmp,materia
      node.leaves[i].scaleTexCoords(s,t);
 
      if(this.selectables.includes(node.nodeID) && this.selectables[this.activeSelectable] == node.nodeID){
-       activeShader.setUniformsValues({normScale: 4});
-       this.scene.setActiveShader(activeShader);
+       //this.activeShader.setUniformsValues({normScale: 50 * Math.sin(this.scene.deltatime/100)});
+       this.scene.setActiveShader(this.activeShader);
        console.log("i'm here");
        ///textura.bind();
        node.leaves[i].display();
