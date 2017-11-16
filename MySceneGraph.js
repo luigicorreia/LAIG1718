@@ -42,6 +42,8 @@ function MySceneGraph(filename, scene) {
 
     this.reader.open('scenes/' + filename, this);
 
+
+
     this.scene.setUpdatePeriod(1/60*100);
 
     this.scene.gl.clearColor(0,0,0, 1.0);
@@ -1597,7 +1599,8 @@ MySceneGraph.prototype.transformationsdisplay = function(node,texturetmp,materia
 
     var textura  = texturetmp;
     var material = materialtmp;
-    this.activeSelectable;
+    this.activeSelectable ;
+    var activeShader = this.testShaders[1];
 
 
     if(node.materialID != "null")  //se não tem material, mantém o material do nó pai
@@ -1617,7 +1620,8 @@ MySceneGraph.prototype.transformationsdisplay = function(node,texturetmp,materia
     for(var i = 0; i < node.children.length; i++){  //faz recursividade dos nós
 
            if(this.selectables.includes(node.nodeID) && this.selectables[this.activeSelectable] == node.nodeID){
-             this.scene.setActiveShader(this.testShaders[6]);
+             activeShader.setUniformsValues({normScale: 4});
+             this.scene.setActiveShader(activeShader);
              console.log("i'm here");
              ///textura.bind();
              this.transformationsdisplay(this.nodes[node.children[i]],textura,material);
@@ -1640,11 +1644,14 @@ MySceneGraph.prototype.transformationsdisplay = function(node,texturetmp,materia
          textura[0].bind();     // aplica textura
        }
 
+
+
       // node.leaves[i].scaleTexCoords(this.textures[node.textureID][1],this.textures[node.textureID][2]);
      node.leaves[i].scaleTexCoords(s,t);
 
      if(this.selectables.includes(node.nodeID) && this.selectables[this.activeSelectable] == node.nodeID){
-       this.scene.setActiveShader(this.testShaders[6]);
+       activeShader.setUniformsValues({normScale: 4});
+       this.scene.setActiveShader(activeShader);
        console.log("i'm here");
        ///textura.bind();
        node.leaves[i].display();
