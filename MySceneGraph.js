@@ -1260,8 +1260,8 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
           controlPoints.push(controlPoint);
         }
         console.log(animationID + "," + animationSpeed + "," + controlPoints);
-        var newAnimation = new MyLinearAnimation(this.scene, animationID, animationSpeed, controlPoints);
-        this.animations[animationID] = newAnimation;
+      //  var newAnimation = new MyLinearAnimation(this.scene, animationID, animationSpeed, controlPoints);
+      //  this.animations[animationID] = newAnimation;
     }
     else if(animationType == "circular"){
       let center = [];
@@ -1476,11 +1476,11 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
             else{
               var animationRefs = nodeSpecs[animationsIndex].children;
 
-              for(var z = 0; z < animationRefs.length; z++){
+              /*for(var z = 0; z < animationRefs.length; z++){
                 let id = this.reader.getString(animationRefs[z], 'id');
                 this.nodes[nodeID].animationID.push(id);
                 this.log("  Animation " + id + " ");
-              }
+              }*/
             }
 
             // Retrieves information about children.
