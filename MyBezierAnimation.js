@@ -3,10 +3,11 @@
 * @constructor
 */
 
-function MyBezierAnimation(scene,args){
-  CGFobject.call(this,scene);
+function MyBezierAnimation(scene,speed,controlPoints) extends MyAnimation{
+  MyAnimation.call(this);
   this.scene = scene;
-  this.object = null;
+  this.speed = speed;
+  this.controlPoints = controlPoints;
 }
 
 MyBezierAnimation.prototype = Object.create(CGFobject.prototype);

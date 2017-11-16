@@ -3,10 +3,14 @@
 * @constructor
 */
 
-function MyCircularAnimation(scene,args){
-  CGFobject.call(this,scene);
+function MyCircularAnimation(scene,speed,center,radius,startang,rotang) extends MyAnimation{
+  MyAnimation.call(this);
   this.scene = scene;
-  this.object = null;
+  this.speed = speed;
+  this.center = center;
+  this.radius = radius;
+  this.startang = startang;
+  this.rotang = rotang;
 }
 
 MyCircularAnimation.prototype = Object.create(CGFobject.prototype);

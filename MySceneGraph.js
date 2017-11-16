@@ -1237,9 +1237,10 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
       //  this.animations.push(new MyLinearAnimation(this.scene, controlPoints, animationSpeed));
     }
     else if(animationType == "circular"){
-      var centerx = this.reader.getFloat(children[i], 'centerx');
-      var centery = this.reader.getFloat(children[i], 'centery');
-      var centerz = this.reader.getFloat(children[i], 'centerz');
+      let center = [];
+      center.push(this.reader.getFloat(children[i], 'centerx'));
+      center.push(this.reader.getFloat(children[i], 'centery'));
+      center.push(this.reader.getFloat(children[i], 'centerz'));
       var radius = this.reader.getFloat(children[i], 'radius');
 
       if(radius < 0)
@@ -1247,6 +1248,8 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
 
       var startang = this.reader.getFloat(children[i], 'startang');
       var rotang = this.reader.getFloat(children[i], 'rotang');
+
+      //this.animations.push(new MyCircularAnimation(this.scene,animationSpeed,center,radius,startang,rotang));
     }
     else if(animationType == "bezier"){
       if(animationSpecs.length != 4)
@@ -1264,6 +1267,7 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
 
           controlPoints.push(controlPoint);
         }
+    //this.animations.push(new MyBezierAnimation(this.scene,controlPoints, animationSpeed));
     }
     else if(animationType == "combo"){
 
@@ -1447,6 +1451,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
 
               for(var z = 0; z < animationRefs.length; z++){
                 let id = this.reader.getString(animationRefs[z], 'id');
+                this.nodes[nodeID].animationID.push(id);
                 this.log("  Animation " + id + " ");
               }
             }
