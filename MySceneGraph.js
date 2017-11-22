@@ -61,11 +61,15 @@ function MySceneGraph(filename, scene) {
       new CGFshader(this.scene.gl, "shaders/texture3.vert", "shaders/texture3.frag"),
       new CGFshader(this.scene.gl, "shaders/texture3.vert", "shaders/sepia.frag"),
       new CGFshader(this.scene.gl, "shaders/texture3.vert", "shaders/convolution.frag"),
+      new CGFshader(this.scene.gl, "shaders/myshader.vert", "shaders/myshader.frag"),
     ];
 
     // texture will have to be bound to unit 1 later, when using the shader, with "this.texture2.bind(1);"
     this.testShaders[4].setUniformsValues({uSampler2: 1});
     this.testShaders[5].setUniformsValues({uSampler2: 1});
+    this.testShaders[7].setUniformsValues({uSampler2: 1});
+
+
 }
 
 /*
@@ -1597,8 +1601,9 @@ MySceneGraph.prototype.transformationsdisplay = function(node,texturetmp,materia
     var textura  = texturetmp;
     var material = materialtmp;
     this.activeSelectable ;
-    this.activeShader = this.testShaders[1];
-    this.activeShader.setUniformsValues({normScale: (10*(Math.sin(this.scene.totalTime/1000)+1)) * 0.7});
+    this.activeShader = this.testShaders[8];
+    this.activeShader.setUniformsValues({normScale: (10*(Math.sin(this.scene.totalTime/500)+1)) * 0.7});
+    this.activeShader.setUniformsValues({colorScale: (Math.sin(this.scene.totalTime/500))+1});
 
     if(node.materialID != "null")  //se não tem material, mantém o material do nó pai
         material = this.materials[node.materialID];
