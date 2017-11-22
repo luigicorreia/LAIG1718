@@ -7,7 +7,11 @@ uniform mat4 uPMatrix;
 uniform mat4 uNMatrix;
 
 uniform float normScale;
+varying vec2 vTextureCoord;
+uniform float colorScale;
 
 void main() {
 	gl_Position = uPMatrix * uMVMatrix * vec4(aVertexPosition+aVertexNormal*normScale*0.1, 1.0);
+
+	vTextureCoord = aTextureCoord;
 }
