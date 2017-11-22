@@ -12,7 +12,7 @@ function MyCircularAnimation(scene,speed,center,radius,startang,rotang){
   this.startang = startang * DEGREE_TO_RAD;
   this.rotang = rotang* DEGREE_TO_RAD;
   this.end = false;  //end flag
-  this.matrix = mat4.create();
+  this.matrix = mat4.create();  //matriz
   this.span = (this.rotang*this.radius)/this.speed;
   this.time = 0;
 };
@@ -24,7 +24,7 @@ MyCircularAnimation.prototype.constructor = MyCircularAnimation;
 MyCircularAnimation.prototype.update = function(time){
   //checks if animation ended
   if(this.end){
-    return this.matrix;
+    return;
   }
 
   //checks if it is the last movement of animation

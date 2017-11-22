@@ -1258,8 +1258,8 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
           controlPoints.push(controlPoint);
         }
         console.log(animationID + "," + animationSpeed + "," + controlPoints);
-      //  var newAnimation = new MyLinearAnimation(this.scene, animationID, animationSpeed, controlPoints);
-      //  this.animations[animationID] = newAnimation;
+       var newAnimation = new MyLinearAnimation(this.scene,controlPoints,animationSpeed);
+      this.animations[animationID] = newAnimation;
     }
     else if(animationType == "circular"){
       let center = [];
@@ -1596,7 +1596,7 @@ MySceneGraph.prototype.transformationsdisplay = function(node,texturetmp,materia
 
     var textura  = texturetmp;
     var material = materialtmp;
-    this.activeSelectable ;
+    this.activeSelectable;
     this.activeShader = this.testShaders[1];
     this.activeShader.setUniformsValues({normScale: (10*(Math.sin(this.scene.totalTime/1000)+1)) * 0.7});
 
@@ -1623,7 +1623,6 @@ MySceneGraph.prototype.transformationsdisplay = function(node,texturetmp,materia
     for(var i = 0; i < node.children.length; i++){  //faz recursividade dos nós
            if(this.selectables.includes(node.nodeID) && this.selectables[this.activeSelectable] == node.nodeID){
              this.scene.setActiveShader(this.activeShader);
-             console.log("i'm here");
              ///textura.bind();
              this.transformationsdisplay(this.nodes[node.children[i]],textura,material);
              this.scene.setActiveShader(this.scene.defaultShader);
