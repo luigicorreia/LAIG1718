@@ -4,7 +4,7 @@
 */
 
 function MyBezierAnimation(scene,speed,controlPoints) extends MyAnimation{
-  MyAnimation.call(this);
+  super(this);
   this.scene = scene;
   this.speed = speed;
   this.controlPoints = controlPoints;

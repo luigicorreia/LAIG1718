@@ -1210,7 +1210,7 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
         continue;
     }
 
-    var animationID = this.reader.getString(children[i], 'id');
+    let animationID = this.reader.getString(children[i], 'id');
 
 
     if (animationID == null )
@@ -1222,7 +1222,6 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
       return "ID must be unique for each animation (conflict: ID = " + animationID + ")";
 
     var animationType = this.reader.getItem(children[i], 'type', ['linear', 'circular', 'bezier', 'combo']);
-
     var animationSpeed = this.reader.getFloat(children[i], 'speed');
 
 
@@ -1237,10 +1236,7 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
     if(animationSpeed < 0)
       return "invalid value of speed in animation " + animationID;
 
-
     var animationSpecs = children[i].children;
-
-    var nodeNames = [];
 
     var controlPoints = [];
 
@@ -1278,7 +1274,8 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
       var startang = this.reader.getFloat(children[i], 'startang');
       var rotang = this.reader.getFloat(children[i], 'rotang');
 
-      //this.animations.push(new MyCircularAnimation(this.scene,animationSpeed,center,radius,startang,rotang));
+      let newAnimation = new MyCircularAnimation(this.scene,animationSpeed,center,radius,startang,rotang);
+      this.animations[animationID] = newAnimation;
     }
     else if(animationType == "bezier"){
       if(animationSpecs.length != 4)
@@ -1478,11 +1475,11 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
             else{
               var animationRefs = nodeSpecs[animationsIndex].children;
 
-              /*for(var z = 0; z < animationRefs.length; z++){
+              for(var z = 0; z < animationRefs.length; z++){
                 let id = this.reader.getString(animationRefs[z], 'id');
                 this.nodes[nodeID].animationID.push(id);
                 this.log("  Animation " + id + " ");
-              }*/
+              }
             }
 
             // Retrieves information about children.
@@ -1615,7 +1612,13 @@ MySceneGraph.prototype.transformationsdisplay = function(node,texturetmp,materia
 
     this.scene.pushMatrix();  //starts the stack da matriz
 
+    for(x in node.animationID){
+      node.animationMatrix = this.animations[node.animationID[x]].getMatrix();
+      //console.log(this.animations[node.animationID[x]].getMatrix());
+    }
+
     this.scene.multMatrix(node.transformMatrix); // multiplica a matriz
+    this.scene.multMatrix(node.animationMatrix); //multiplica a matriz da animação
 
     for(var i = 0; i < node.children.length; i++){  //faz recursividade dos nós
            if(this.selectables.includes(node.nodeID) && this.selectables[this.activeSelectable] == node.nodeID){
@@ -1627,7 +1630,6 @@ MySceneGraph.prototype.transformationsdisplay = function(node,texturetmp,materia
            }
            else
             this.transformationsdisplay(this.nodes[node.children[i]],textura,material);
-
 
     }
 
@@ -1642,15 +1644,12 @@ MySceneGraph.prototype.transformationsdisplay = function(node,texturetmp,materia
          textura[0].bind();     // aplica textura
        }
 
-
-
       // node.leaves[i].scaleTexCoords(this.textures[node.textureID][1],this.textures[node.textureID][2]);
      node.leaves[i].scaleTexCoords(s,t);
 
      if(this.selectables.includes(node.nodeID) && this.selectables[this.activeSelectable] == node.nodeID){
        //this.activeShader.setUniformsValues({normScale: 50 * Math.sin(this.scene.deltatime/100)});
        this.scene.setActiveShader(this.activeShader);
-       console.log("i'm here");
        ///textura.bind();
        node.leaves[i].display();
        this.scene.setActiveShader(this.scene.defaultShader);

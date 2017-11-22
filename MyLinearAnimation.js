@@ -4,12 +4,15 @@
  */
 
 function MyLinearAnimation(scene, controlPoints, speed) extends MyAnimation {
-  MyAnimation.call(this);
+  super(this);
+  this.speed = speed;
+  this.controlPoints = controlPoints;
+  this.end = false;
+  this.line = 0;
   this.totalDistance = 0;
   this.partialDistances = [];
-  this.matrix;
-  this.speed = speed;
-
+  this.partialVectors = [];
+  this.matrix = mat4.create();
 
   for (var i = 0; i < controlPoints.length - 1; i++) {
     let distance = calculateDistance(controlPoints[i], controlPoints[i + 1]);
@@ -22,7 +25,17 @@ function MyLinearAnimation(scene, controlPoints, speed) extends MyAnimation {
 
 MyLinearAnimation.prototype = Object.create(MyAnimation.prototype);
 MyLinearAnimation.prototype.constructor = MyLinearAnimation;
+
 MyLinearAnimation.prototype.update = function(time) {
+  let v = [];
+
+  let initialPoint = [];
+  let delta = [time*v[0],time*v[1],time*v[2]];
+  let matrixTmp = mat4.create();
+  matrixtmp.translate(delta[0],delta[1],delta[2]);
+  matrixtmp.translate(initialPoint[0],initialPoint[1],initialPoint[2]);
+  matrixTmp.rotate(calculateAng(,)*DEGREE_TO_RAD);
+  this.matrix = matrixTmp;
 
 }
 

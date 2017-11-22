@@ -256,8 +256,8 @@
   </ANIMATION>
 
   <ANIMATION id="fag2" speed="2" type="circular"
-    centerx="2" centery="3" centerz="4"
-    radius="6" startang="21" rotang="60"/>
+    centerx="4" centery="4" centerz="4"
+    radius="2" startang="21" rotang="360"/>
 
 </ANIMATIONS>
 
@@ -592,7 +592,7 @@
         <SCALE sx="0.5" sy="0.5" sz="0.5" />
 
         <ANIMATIONREFS>
-          <ANIMATIONREF id="fag1" />
+          <ANIMATIONREF id="fag2" />
         </ANIMATIONREFS>
 
         <DESCENDANTS>

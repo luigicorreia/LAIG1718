@@ -172,5 +172,8 @@ XMLscene.prototype.update = function(currTime) {
     this.deltatime = currTime - this.lastTime || 0.0;
     this.lastTime = currTime;
     this.totalTime += this.deltatime;
-    console.log(this.totalTime);
+
+    for(x in this.graph.animations){
+      this.graph.animations[x].update(this.deltatime);
+    }
 }
