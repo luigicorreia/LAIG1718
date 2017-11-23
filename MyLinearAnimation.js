@@ -32,8 +32,6 @@ MyLinearAnimation.prototype.update = function(time) {
       this.curIndex++;
       if(this.curIndex == this.controlPoints.length - 1){ //Se chegamos ao fim retorna-mos a ultima posição
         this.end = true;
-        //mat4.translate(this.matrix, this.matrix, this.controlPoints[this.controlPoints.length - 1]);  //quero que volte à posição inicial?
-        //mat4.rotateY(this.matrix, this.matrix, this.degree[this.curIndex-1])
         return;
       }
       this.timeOffset = this.timePerPoint[this.curIndex - 1] //Apartir de cada novo ponto de controlo assumimos um deltaT inicial = 0
