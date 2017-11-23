@@ -1600,7 +1600,7 @@ MySceneGraph.prototype.transformationsdisplay = function(node,texturetmp,materia
 
     var textura  = texturetmp;
     var material = materialtmp;
-    
+
     this.activeSelectable ;
     this.activeShader = this.testShaders[8];
     this.activeShader.setUniformsValues({normScale: (10*(Math.sin(this.scene.totalTime/500)+1)) * 0.7});

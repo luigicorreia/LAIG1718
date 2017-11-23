@@ -164,7 +164,7 @@ XMLscene.prototype.display = function() {
 
 XMLscene.prototype.update = function(currTime) {
 
-    this.lastime = this.lastime || 0.0;
+    this.lasTime = this.lasTime || 0.0;
     this.deltatime = currTime - this.lastTime || 0.0;
     this.lastTime = currTime;
     this.totalTime += this.deltatime;
