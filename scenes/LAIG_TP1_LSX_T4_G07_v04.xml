@@ -261,6 +261,14 @@
     centerx="4" centery="0" centerz="4"
     radius="5" startang="21" rotang="360"/>
 
+  <ANIMATION id="fag3" speed="2" type="bezier">
+    <controlpoint xx="0" yy="3" zz="4" />
+    <controlpoint xx="3" yy="3" zz="4" />
+    <controlpoint xx="4" yy="0.5" zz="4" />
+    <controlpoint xx="7" yy="0.5" zz="4" />
+  </ANIMATION>
+
+
 </ANIMATIONS>
 
 <!-- The leaves -->
@@ -416,6 +424,10 @@
 
     	<TRANSLATION x="0" y="3" z="3" />
 
+      <ANIMATIONREFS>
+        <ANIMATIONREF id="fag3" />
+      </ANIMATIONREFS>
+
     	<DESCENDANTS>
     		<NODEREF id="frame_side1"/>
     		<NODEREF id="frame_side2"/>
@@ -430,6 +442,8 @@
     	<TEXTURE id="null" />
 
     	<TRANSLATION x="0" y="3" z="11" />
+
+
 
     	<DESCENDANTS>
     		<NODEREF id="frame_side1"/>

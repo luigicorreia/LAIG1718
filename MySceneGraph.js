@@ -1296,7 +1296,12 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
           controlPoint.push(z);
 
           controlPoints.push(controlPoint);
+
+
         }
+
+        let newAnimation = new MyBezierAnimation(this.scene, animationSpeed, controlPoints);
+        this.animations[animationID] = newAnimation;
     //this.animations.push(new MyBezierAnimation(this.scene,controlPoints, animationSpeed));
     }
     else if(animationType == "combo"){
@@ -1600,7 +1605,7 @@ MySceneGraph.prototype.transformationsdisplay = function(node,texturetmp,materia
 
     var textura  = texturetmp;
     var material = materialtmp;
-    
+
     this.activeSelectable ;
     this.activeShader = this.testShaders[8];
     this.activeShader.setUniformsValues({normScale: (10*(Math.sin(this.scene.totalTime/500)+1)) * 0.7});
