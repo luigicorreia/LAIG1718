@@ -4,7 +4,8 @@
  */
 
 function MyLinearAnimation(scene, controlPoints, speed){
-  //CGFobject.call(this,scene);
+  
+  this.scene = scene;
   this.speed = speed;
   this.controlPoints = controlPoints;
   this.end = false;  //end flag
@@ -84,6 +85,21 @@ MyLinearAnimation.prototype.getMatrix = function() {
   return this.matrix;
 }
 
+//return true if animation end,else returns false
+MyLinearAnimation.prototype.getEnd = function() {
+  return this.end;
+}
+
 MyLinearAnimation.prototype.calculateDistance = function(p0, p1) {
   return Math.sqrt(Math.pow((p1[0] - p0[0]), 2) + Math.pow((p1[1] - p0[1]), 2) + Math.pow((p1[2] - p0[2]), 2));
+}
+
+//clones the animation
+MyLinearAnimation.prototype.clone = function() {
+  return new MyLinearAnimation(this.scene,this.controlPoints,this.speed);
+}
+
+//restarts the time
+MyLinearAnimation.prototype.restartTime = function() {
+  return this.time = 0;
 }
