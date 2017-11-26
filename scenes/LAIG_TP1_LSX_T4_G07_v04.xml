@@ -250,41 +250,26 @@
 
 <ANIMATIONS>
 
-  <ANIMATION id="fag1" speed="2" type="linear">
-    <controlpoint xx="2" yy="3" zz="4" />
-    <controlpoint xx="3" yy="5" zz="5" />
-    <controlpoint xx="7" yy="2" zz="3" />
-    <controlpoint xx="2" yy="2" zz="2" />
-  </ANIMATION>
-
-  <ANIMATION id="fag2" speed="2" type="circular"
-    centerx="4" centery="0" centerz="4"
-    radius="5" startang="21" rotang="360"/>
-
-  <ANIMATION id="fag3" speed="2" type="bezier">
+  <ANIMATION id="bezier3" speed="2" type="bezier">
     <controlpoint xx="0" yy="3" zz="6" />
     <controlpoint xx="3" yy="3" zz="6" />
-    <controlpoint xx="8" yy="0.5" zz="6" />
-    <controlpoint xx="15" yy="0.5" zz="6" />
+    <controlpoint xx="8" yy="0.5" zz="8" />
+    <controlpoint xx="10" yy="0.5" zz="9" />
   </ANIMATION>
 
 <ANIMATION id="linebetweenbezier" speed="2" type="linear">
-    <controlpoint xx="15" yy="0.5" zz="6" />
-    <controlpoint xx="10" yy="1.5" zz="6" />
+    <controlpoint xx="0" yy="0" zz="0" />
+    <controlpoint xx="0" yy="0" zz="5" />
 </ANIMATION>
 
 <ANIMATION id="bezier1" speed="2" type="bezier">
-    <controlpoint xx="15" yy="0.5" zz="6" />
-    <controlpoint xx="8" yy="0.5" zz="6" />
-    <controlpoint xx="3" yy="3" zz="6" />
-    <controlpoint xx="-1" yy="3" zz="6" />
+    <controlpoint xx="0" yy="0" zz="5" />
+    <controlpoint xx="-2" yy="0" zz="2" />
+    <controlpoint xx="-3" yy="0" zz="2" />
+    <controlpoint xx="-2" yy="0" zz="-6" />
 </ANIMATION>
 
-  <ANIMATION id="fag4" type="combo">
-    <SPANREF id="fag1" />
-    <SPANREF id="fag2" />
-    <SPANREF id="fag3" />
-  </ANIMATION>
+
 
 <ANIMATION id="linear1" speed="4" type="linear">
   <controlpoint xx="0" yy="0" zz="5" />
@@ -292,32 +277,31 @@
 </ANIMATION>
 
 <ANIMATION id="linear2" speed="4" type="linear">
-  <controlpoint xx="5" yy="0" zz="5" />
+  <controlpoint xx="0" yy="0" zz="0" />
   <controlpoint xx="5" yy="0" zz="10" />
+  <controlpoint xx="-10" yy="0" zz="8" />
 </ANIMATION>
 
-  <ANIMATION id="circ1" speed="3" type="circular"
+  <ANIMATION id="circ1" speed="0.5" type="circular"
     centerx="5" centery="0" centerz="5"
-    radius=".2" startang="0" rotang="90"/>
+    radius=".2" startang="90" rotang="300"/>
 
     <ANIMATION id="circ2" speed="3" type="circular"
     centerx="6" centery="0" centerz="5"
     radius="3" startang="0" rotang="90"/>
 
 <ANIMATION id="combo1" type="combo">
-  <SPANREF id="fag3" />
+  <SPANREF id="bezier3" />
   <SPANREF id="linebetweenbezier" />
-  <SPANREF id="linear1" />
+  <SPANREF id="bezier1" />
 </ANIMATION>
 
 <ANIMATION id="combo2" type="combo">
-     
+
     <SPANREF id="linear1" />
     <SPANREF id="circ1" />
     <SPANREF id="linear2" />
-   
-    
-    
+
 </ANIMATION>
 
 
@@ -478,10 +462,6 @@
 
     	<TRANSLATION x="0" y="3" z="3" />
 
-      <ANIMATIONREFS>
-        <ANIMATIONREF id="combo1" />
-      </ANIMATIONREFS>
-
     	<DESCENDANTS>
     		<NODEREF id="frame_side1"/>
     		<NODEREF id="frame_side2"/>
@@ -590,6 +570,10 @@
         <TEXTURE id="null" />
 
         <TRANSLATION x="3" y="0" z="2" />
+
+        <ANIMATIONREFS>
+          <ANIMATIONREF id="combo1" />
+        </ANIMATIONREFS>
 
         <DESCENDANTS>
             <NODEREF id="earth" />
@@ -1587,9 +1571,7 @@
         <TEXTURE id="null" />
 
         <TRANSLATION x="40" y="6" z="7.5" />
-        <ANIMATIONREFS>
-          <ANIMATIONREF id="fag1" />
-        </ANIMATIONREFS>
+
 
         <DESCENDANTS>
             <NODEREF id="cable4" />
