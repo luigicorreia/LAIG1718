@@ -1216,32 +1216,25 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
 
     let animationID = this.reader.getString(children[i], 'id');
 
-
     if (animationID == null )
         return "no ID defined for animation";
 
-    this.animationsIds.push(animationID);
+    this.animationsIds.push(animationID);  //saves id animation
 
     if(this.animationsIds[animationID] != null)
       return "ID must be unique for each animation (conflict: ID = " + animationID + ")";
 
     var animationType = this.reader.getItem(children[i], 'type', ['linear', 'circular', 'bezier', 'combo']);
-    var animationSpeed = this.reader.getFloat(children[i], 'speed');
 
-
-    if(isNaN(animationSpeed))
-        return "Invalid speed in " + animationID;
-
-    if(animationSpeed == null && animationType != "combo")
-      return "no speed defined for animation";
-    else if(animationSpeed == null)
-      return "combo animation!";
-
-    if(animationSpeed < 0)
-      return "invalid value of speed in animation " + animationID;
+    if(animationType != "combo"){
+      var animationSpeed = this.reader.getFloat(children[i], 'speed');
+      if(animationSpeed == null)
+        return "no speed defined for animation";
+      else if (animationSpeed < 0)
+        return "invalid value of speed in animation " + animationID;
+    }
 
     var animationSpecs = children[i].children;
-
     var controlPoints = [];
 
     if(animationType == "linear"){
@@ -1261,9 +1254,7 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
 
           controlPoints.push(controlPoint);
         }
-        console.log(animationID + "," + animationSpeed + "," + controlPoints);
-       var newAnimation = new MyLinearAnimation(this.scene,controlPoints,animationSpeed);
-      this.animations[animationID] = newAnimation;
+       this.animations[animationID] = new MyLinearAnimation(this.scene,controlPoints,animationSpeed);
     }
     else if(animationType == "circular"){
       let center = [];
@@ -1278,8 +1269,7 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
       var startang = this.reader.getFloat(children[i], 'startang');
       var rotang = this.reader.getFloat(children[i], 'rotang');
 
-      let newAnimation = new MyCircularAnimation(this.scene,animationSpeed,center,radius,startang,rotang);
-      this.animations[animationID] = newAnimation;
+      this.animations[animationID] = new MyCircularAnimation(this.scene,animationSpeed,center,radius,startang* DEGREE_TO_RAD,rotang*DEGREE_TO_RAD);
     }
     else if(animationType == "bezier"){
       if(animationSpecs.length != 4)
@@ -1296,16 +1286,24 @@ MySceneGraph.prototype.parseAnimations = function(animationsNode) {
           controlPoint.push(z);
 
           controlPoints.push(controlPoint);
-
-
         }
-
-        let newAnimation = new MyBezierAnimation(this.scene, animationSpeed, controlPoints);
-        this.animations[animationID] = newAnimation;
-    //this.animations.push(new MyBezierAnimation(this.scene,controlPoints, animationSpeed));
+        this.animations[animationID] = new MyBezierAnimation(this.scene, animationSpeed, controlPoints);;
     }
     else if(animationType == "combo"){
+        var comboAnimations = [];
+        if (animationSpecs.length < 1)
+            return "A combo animation has atleast 1 animation!";
 
+        for (let j = 0; j < animationSpecs.length; j++) {
+
+            let idAnimation = this.reader.getString(animationSpecs[j], 'id');
+
+            if (this.animations[idAnimation] == null)
+                return "This animation doesn't exist!";
+
+            comboAnimations.push(idAnimation);
+        }
+        this.animations[animationID] = new MyComboAnimation(this.scene, comboAnimations);
     }
   }
 
@@ -1624,18 +1622,34 @@ MySceneGraph.prototype.transformationsdisplay = function(node,texturetmp,materia
 
     this.scene.pushMatrix();  //starts the stack da matriz
 
-    for(x in node.animationID){
-      node.animationMatrix = this.animations[node.animationID[x]].getMatrix();
-      //console.log(this.animations[node.animationID[x]].getMatrix());
-    }
+    this.scene.multMatrix(node.transformMatrix); // multiplica a matriz de tranformação
 
-    this.scene.multMatrix(node.transformMatrix); // multiplica a matriz
-    this.scene.multMatrix(node.animationMatrix); //multiplica a matriz da animação
+    //if all node animations have ended
+    if (node.counterAnimations >= node.animationID.length && node.animationID.length > 0)
+        this.scene.multMatrix(node.animationMatrix);
+    else if (node.animationID.length > 0) {
+      if (node.currentAnimation == null) {    // gets next animation and restarts the time
+        node.currentAnimation = this.animations[node.animationID[node.counterAnimations]].clone();
+        node.currentAnimation.restartTime();
+      }
+
+      node.currentAnimation.update(this.scene.deltatime);   //updates the animation
+
+      var matrixTmp = node.currentAnimation.getMatrix(); //returns the matrix
+      this.scene.multMatrix(node.animationMatrix);
+      this.scene.multMatrix(matrixTmp);
+
+      //if animation ended
+      if (node.currentAnimation.getEnd()) {
+        node.currentAnimation = null;
+        node.counterAnimations++;
+        mat4.multiply(node.animationMatrix, node.animationMatrix,matrixTmp);
+        }
+      }
 
     for(var i = 0; i < node.children.length; i++){  //faz recursividade dos nós
            if(this.selectables.includes(node.nodeID) && this.selectables[this.activeSelectable] == node.nodeID){
              this.scene.setActiveShader(this.activeShader);
-             ///textura.bind();
              this.transformationsdisplay(this.nodes[node.children[i]],textura,material);
              this.scene.setActiveShader(this.scene.defaultShader);
            }
@@ -1652,16 +1666,13 @@ MySceneGraph.prototype.transformationsdisplay = function(node,texturetmp,materia
      if(textura != null){
        var s = textura[1];
        var t = textura[2];
-         textura[0].bind();     // aplica textura
+       textura[0].bind();     // aplica textura
        }
 
-      // node.leaves[i].scaleTexCoords(this.textures[node.textureID][1],this.textures[node.textureID][2]);
      node.leaves[i].scaleTexCoords(s,t);
 
      if(this.selectables.includes(node.nodeID) && this.selectables[this.activeSelectable] == node.nodeID){
-       //this.activeShader.setUniformsValues({normScale: 50 * Math.sin(this.scene.deltatime/100)});
        this.scene.setActiveShader(this.activeShader);
-       ///textura.bind();
        node.leaves[i].display();
        this.scene.setActiveShader(this.scene.defaultShader);
      }

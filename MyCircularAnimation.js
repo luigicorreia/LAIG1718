@@ -4,13 +4,13 @@
 */
 
 function MyCircularAnimation(scene,speed,center,radius,startang,rotang){
-  CGFobject.call(this,scene);
+  
   this.scene = scene;
   this.speed = speed;
   this.center = center;
   this.radius = radius;
-  this.startang = startang * DEGREE_TO_RAD;
-  this.rotang = rotang* DEGREE_TO_RAD;
+  this.startang = startang;
+  this.rotang = rotang;
   this.end = false;  //end flag
   this.matrix = mat4.create();  //matriz
   this.span = (this.rotang*this.radius)/this.speed;
@@ -48,5 +48,20 @@ MyCircularAnimation.prototype.update = function(time){
 
 //return the animation matrix
 MyCircularAnimation.prototype.getMatrix = function(){
-return this.matrix;
+  return this.matrix;
+}
+
+//return true if animation end,else returns false
+MyCircularAnimation.prototype.getEnd = function(){
+  return this.end;
+}
+
+//clones the animation
+MyCircularAnimation.prototype.clone = function() {
+  return new MyCircularAnimation(this.scene,this.speed,this.center,this.radius,this.startang,this.rotang);
+}
+
+//restarts the time
+MyCircularAnimation.prototype.restartTime = function() {
+  return this.time = 0;
 }

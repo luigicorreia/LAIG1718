@@ -262,10 +262,16 @@
     radius="5" startang="21" rotang="360"/>
 
   <ANIMATION id="fag3" speed="2" type="bezier">
-    <controlpoint xx="0" yy="3" zz="4" />
-    <controlpoint xx="3" yy="3" zz="4" />
-    <controlpoint xx="4" yy="0.5" zz="4" />
-    <controlpoint xx="7" yy="0.5" zz="4" />
+    <controlpoint xx="0" yy="3" zz="0" />
+    <controlpoint xx="3" yy="3" zz="7" />
+    <controlpoint xx="8" yy="0.5" zz="6" />
+    <controlpoint xx="15" yy="0.5" zz="0" />
+  </ANIMATION>
+
+  <ANIMATION id="fag4" type="combo">
+    <SPANREF id="fag1" />
+    <SPANREF id="fag2" />
+    <SPANREF id="fag3" />
   </ANIMATION>
 
 
@@ -570,6 +576,9 @@
         <TEXTURE id="null" />
 
          <TRANSLATION x="6" y="0" z="0" />
+         <ANIMATIONREFS>
+           <ANIMATIONREF id="fag4" />
+         </ANIMATIONREFS>
 
         <DESCENDANTS>
             <NODEREF id="sun" />
