@@ -55,7 +55,6 @@ MyInterface.prototype.addSelectables = function(selectables, graph) {
   group.add(this.scene, "selectables", selectables).onChange(function(v) {
             for (var i = 0; i < selectables.length; i++) {
                 if (selectables[i] == v) {
-                    console.log("wow");
                     graph.activeSelectable = i;
                 }
             }
