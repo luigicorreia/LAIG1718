@@ -262,17 +262,65 @@
     radius="5" startang="21" rotang="360"/>
 
   <ANIMATION id="fag3" speed="2" type="bezier">
-    <controlpoint xx="0" yy="3" zz="0" />
-    <controlpoint xx="3" yy="3" zz="7" />
+    <controlpoint xx="0" yy="3" zz="6" />
+    <controlpoint xx="3" yy="3" zz="6" />
     <controlpoint xx="8" yy="0.5" zz="6" />
-    <controlpoint xx="15" yy="0.5" zz="0" />
+    <controlpoint xx="15" yy="0.5" zz="6" />
   </ANIMATION>
+
+<ANIMATION id="linebetweenbezier" speed="2" type="linear">
+    <controlpoint xx="15" yy="0.5" zz="6" />
+    <controlpoint xx="10" yy="1.5" zz="6" />
+</ANIMATION>
+
+<ANIMATION id="bezier1" speed="2" type="bezier">
+    <controlpoint xx="15" yy="0.5" zz="6" />
+    <controlpoint xx="8" yy="0.5" zz="6" />
+    <controlpoint xx="3" yy="3" zz="6" />
+    <controlpoint xx="-1" yy="3" zz="6" />
+</ANIMATION>
 
   <ANIMATION id="fag4" type="combo">
     <SPANREF id="fag1" />
     <SPANREF id="fag2" />
     <SPANREF id="fag3" />
   </ANIMATION>
+
+<ANIMATION id="linear1" speed="4" type="linear">
+  <controlpoint xx="0" yy="0" zz="5" />
+  <controlpoint xx="5" yy="0" zz="5" />
+</ANIMATION>
+
+<ANIMATION id="linear2" speed="4" type="linear">
+  <controlpoint xx="5" yy="0" zz="5" />
+  <controlpoint xx="5" yy="0" zz="10" />
+</ANIMATION>
+
+  <ANIMATION id="circ1" speed="3" type="circular"
+    centerx="5" centery="0" centerz="5"
+    radius=".2" startang="0" rotang="90"/>
+
+    <ANIMATION id="circ2" speed="3" type="circular"
+    centerx="6" centery="0" centerz="5"
+    radius="3" startang="0" rotang="90"/>
+
+<ANIMATION id="combo1" type="combo">
+  <SPANREF id="fag3" />
+  <SPANREF id="linebetweenbezier" />
+  <SPANREF id="linear1" />
+</ANIMATION>
+
+<ANIMATION id="combo2" type="combo">
+     
+    <SPANREF id="linear1" />
+    <SPANREF id="circ1" />
+    <SPANREF id="linear2" />
+   
+    
+    
+</ANIMATION>
+
+
 
 
 </ANIMATIONS>
@@ -431,7 +479,7 @@
     	<TRANSLATION x="0" y="3" z="3" />
 
       <ANIMATIONREFS>
-        <ANIMATIONREF id="fag3" />
+        <ANIMATIONREF id="combo1" />
       </ANIMATIONREFS>
 
     	<DESCENDANTS>
@@ -576,9 +624,9 @@
         <TEXTURE id="null" />
 
          <TRANSLATION x="6" y="0" z="0" />
-         <ANIMATIONREFS>
+        <!-- <ANIMATIONREFS>
            <ANIMATIONREF id="fag4" />
-         </ANIMATIONREFS>
+         </ANIMATIONREFS> -->
 
         <DESCENDANTS>
             <NODEREF id="sun" />
@@ -615,9 +663,10 @@
 
         <TRANSLATION x="10" y="0.5" z="10" />
         <SCALE sx="0.5" sy="0.5" sz="0.5" />
+        <ROTATION axis="y" angle="90" />
 
-        <ANIMATIONREFS>
-          <ANIMATIONREF id="fag2" />
+     <ANIMATIONREFS>
+          <ANIMATIONREF id="combo2" />
         </ANIMATIONREFS>
 
         <DESCENDANTS>
