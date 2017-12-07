@@ -31,7 +31,7 @@ MyLinearAnimation.prototype.update = function(time) {
 
   if(this.time > this.timePerPoint[this.curIndex]){ //Verificar se já excedemos o vetor atual
       this.curIndex++;
-      if(this.curIndex == this.controlPoints.length - 1){ //Se chegamos ao fim retorna-mos a ultima posição
+      if(this.curIndex == this.controlPoints.length - 1){ //Se chegamos ao fim retorna-nos a ultima posição
         this.end = true;
         return;
       }

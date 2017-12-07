@@ -15,45 +15,43 @@
 <!-- Illumination and clear colour -->
 <ILLUMINATION>
     <ambient r="0.2" g="0.2" b="0.2" a="1" />
-    <background r="0" g="0" b="0" a="1" />
+    <background r="0.13" g="0" b="0.45" a="1" />
 </ILLUMINATION>
 
 
 <!-- Lights -->
 <LIGHTS>
-	<LIGHT id="main_light1">
+	<LIGHT id="light0">
         <enable value ="1" />
-        <position  x="5" y="20" z="15" w="1" />
-        <ambient r="0.6" g="0.6" b="0.6" a="1.0" />
-        <diffuse r="0.5" g="0.5" b="0.5" a="0.5" />
-        <specular r="0.2" g="0.2" b="0.2" a="1.0" />
+        <position  x="0" y="10" z="0" w="0" />
+        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+        <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+        <specular r="1.0" g="1.0" b="1.0" a="1.0" />
     </LIGHT>
 
-	<LIGHT id="main_light2">
+	<LIGHT id="light1">
         <enable value ="1" />
-        <position x="45" y="20" z="20" w="1" />
-        <ambient r="0.6" g="0.6" b="0.6" a="1.0" />
-        <diffuse r="0.5" g="0.5" b="0.5" a="1.0" />
-        <specular r="0.3" g="0.3" b="0.3" a="0.0" />
+        <position x="30" y="10" z="0" w="1" />
+        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+        <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+        <specular r="1.0" g="1.0" b="1.0" a="1.0" />
     </LIGHT>
 
-    <LIGHT id="neil_frame">
+	<LIGHT id="light2">
         <enable value ="1" />
-        <position x="1" y="9" z="13.5" w="1" />
-        <ambient r="0.3" g="0.3" b="0.3" a="1.0" />
+        <position x="20" y="7" z="10" w="1" />
+        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+        <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+        <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+    </LIGHT>
+
+    <LIGHT id="light3">
+        <enable value ="1" />
+        <position x="20" y="14" z="10" w="1" />
+        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
         <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
-        <specular r="0.5" g="0.5" b="0.5" a="1.0" />
+        <specular r="0.6" g="0.6" b="0.6" a="1.0" />
     </LIGHT>
-
-     <LIGHT id="copernicus_frame">
-        <enable value ="1" />
-        <position x="1" y="9" z="6" w="1" />
-        <ambient r="0.3" g="0.3" b="0.3" a="1.0" />
-        <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
-        <specular r="0.5" g="0.5" b="0.5" a="1.0" />
-    </LIGHT>
-
-
 
 </LIGHTS>
 
@@ -134,7 +132,7 @@
      <TEXTURE id="wall">
     	<file path="images/wall.jpg" />
     	<amplif_factor s="1" t="1" />
-    </TEXTURE>
+    </TEXTURE> 
 
      <TEXTURE id="door">
     	<file path="images/door.png" />
@@ -144,38 +142,7 @@
      <TEXTURE id="red_carpet">
     	<file path="images/red_carpet.jpg" />
     	<amplif_factor s="2" t="2" />
-    </TEXTURE>
-
-    <TEXTURE id="saturn">
-        <file path="images/saturn.jpg" />
-        <amplif_factor s="1" t="1" />
-    </TEXTURE>
-
-    <TEXTURE id="saturn_ring">
-        <file path="images/saturn_ring.jpg" />
-        <amplif_factor s="5" t="10" />
-    </TEXTURE>
-
-    <TEXTURE id="this_way">
-    	<file path="images/this_way.jpg" />
-        <amplif_factor s="4" t="2" />
-    </TEXTURE>
-
-    <TEXTURE id="neil">
-    	<file path="images/neil.jpg" />
-        <amplif_factor s="4" t="5" />
-    </TEXTURE>
-
-    <TEXTURE id="copernicus">
-    	<file path="images/copernicus.jpg" />
-        <amplif_factor s="3.5" t="5" />
-    </TEXTURE>
-
-     <TEXTURE id="wooden_frame">
-        <file path="images/wooden_frame.jpg" />
-        <amplif_factor s="0.5" t="0.5" />
-    </TEXTURE>
-
+    </TEXTURE> 
 
 
 
@@ -241,73 +208,13 @@
     <MATERIAL id="red">
         <shininess value="1" />
         <specular r="0.0" g="0.0" b="0.0" a="1" />
-        <diffuse r="0.5" g="0" b="0.1" a="1" />
-        <ambient r="0.5" g="0" b="0.1" a="1" />
+        <diffuse r="0.8" g="0" b="0.1" a="1" />
+        <ambient r="0.8" g="0" b="0.1" a="1" />
         <emission r="0.0" g="0.0" b="0.0" a="1" />
     </MATERIAL>
 
 </MATERIALS>
 
-<ANIMATIONS>
-
-  <ANIMATION id="bezier3" speed="2" type="bezier">
-    <controlpoint xx="0" yy="3" zz="6" />
-    <controlpoint xx="3" yy="3" zz="6" />
-    <controlpoint xx="8" yy="0.5" zz="8" />
-    <controlpoint xx="10" yy="0.5" zz="9" />
-  </ANIMATION>
-
-<ANIMATION id="linebetweenbezier" speed="2" type="linear">
-    <controlpoint xx="0" yy="0" zz="0" />
-    <controlpoint xx="0" yy="0" zz="5" />
-</ANIMATION>
-
-<ANIMATION id="bezier1" speed="2" type="bezier">
-    <controlpoint xx="0" yy="0" zz="5" />
-    <controlpoint xx="-2" yy="0" zz="2" />
-    <controlpoint xx="-3" yy="0" zz="2" />
-    <controlpoint xx="-2" yy="0" zz="-6" />
-</ANIMATION>
-
-
-
-<ANIMATION id="linear1" speed="4" type="linear">
-  <controlpoint xx="0" yy="0" zz="5" />
-  <controlpoint xx="5" yy="0" zz="5" />
-</ANIMATION>
-
-<ANIMATION id="linear2" speed="4" type="linear">
-  <controlpoint xx="0" yy="0" zz="0" />
-  <controlpoint xx="5" yy="0" zz="10" />
-  <controlpoint xx="-10" yy="0" zz="8" />
-</ANIMATION>
-
-  <ANIMATION id="circ1" speed="0.5" type="circular"
-    centerx="5" centery="0" centerz="5"
-    radius=".2" startang="90" rotang="300"/>
-
-    <ANIMATION id="circ2" speed="3" type="circular"
-    centerx="6" centery="0" centerz="5"
-    radius="3" startang="0" rotang="90"/>
-
-<ANIMATION id="combo1" type="combo">
-  <SPANREF id="bezier3" />
-  <SPANREF id="linebetweenbezier" />
-  <SPANREF id="bezier1" />
-</ANIMATION>
-
-<ANIMATION id="combo2" type="combo">
-
-    <SPANREF id="linear1" />
-    <SPANREF id="circ1" />
-    <SPANREF id="linear2" />
-
-</ANIMATION>
-
-
-
-
-</ANIMATIONS>
 
 <!-- The leaves -->
 <LEAVES>
@@ -333,12 +240,9 @@
             <NODEREF id="rover" />
             <NODEREF id="moon_expo" />
             <NODEREF id="youshallnotpass" />
-            <NODEREF id="saturn_model" />
         </DESCENDANTS>
 
     </NODE>
-
-
 
     <NODE id="floor">
     	<MATERIAL id="null" />
@@ -347,7 +251,6 @@
     	<DESCENDANTS>
     		<NODEREF id="pavement" />
     		<NODEREF id="carpet" />
-    		<NODEREF id="arrow" />
        	</DESCENDANTS>
     </NODE>
 
@@ -365,11 +268,11 @@
 
     </NODE>
 
-    <NODE id="carpet" selectable="true">
+    <NODE id="carpet">
     	 <MATERIAL id="null" />
         <TEXTURE id="red_carpet" />
 
-
+        
         <TRANSLATION x="0" y="0.01" z="31" />
         <ROTATION axis="x" angle="-90" />
 
@@ -377,17 +280,6 @@
             <LEAF  type="rectangle" args="0 10 50 0" />
         </DESCENDANTS>
 
-    </NODE>
-
-    <NODE id="arrow">
-    	<MATERIAL id="null"/>
-    	<TEXTURE id="this_way" />
-
-    	<TRANSLATION x="1" y="0" z="23"/>
-
-    	<DESCENDANTS>
-    		<LEAF type="triangle" args="0 0.05 -0.5 0 0.05 6.5 5 0.05 3" />
-    	</DESCENDANTS>
     </NODE>
 
 
@@ -400,7 +292,6 @@
             <NODEREF id="wall1" />
             <NODEREF id="wall2" />
             <NODEREF id="door" />
-            <NODEREF id="frames" />
         </DESCENDANTS>
     </NODE>
 
@@ -409,7 +300,7 @@
         <MATERIAL id="null" />
         <TEXTURE id="space"/>
 
-        <SCALE sx="10" sy="3.5" sz="1" />
+        <SCALE sx="10" sy="3.5" sz="5" />
         <ROTATION axis="x" angle="0" />
 
         <DESCENDANTS>
@@ -446,134 +337,14 @@
     </NODE>
 
 
-    <NODE id="frames">
-    	<MATERIAL id="null" />
-    	<TEXTURE id="null" />
-
-    	<DESCENDANTS>
-    		<NODEREF id="frame1" />
-    		<NODEREF id="frame2" />
-    	</DESCENDANTS>
-    </NODE>
-
-    <NODE id="frame2">
-    	<MATERIAL id="null" />
-    	<TEXTURE id="null" />
-
-    	<TRANSLATION x="0" y="3" z="3" />
-
-    	<DESCENDANTS>
-    		<NODEREF id="frame_side1"/>
-    		<NODEREF id="frame_side2"/>
-    		<NODEREF id="frame_up" />
-    		<NODEREF id="frame_down" />
-    		<NODEREF id="copernicus" />
-    	</DESCENDANTS>
-    </NODE>
-
-    <NODE id="frame1">
-    	<MATERIAL id="null" />
-    	<TEXTURE id="null" />
-
-    	<TRANSLATION x="0" y="3" z="11" />
-
-
-
-    	<DESCENDANTS>
-    		<NODEREF id="frame_side1"/>
-    		<NODEREF id="frame_side2"/>
-    		<NODEREF id="frame_up" />
-    		<NODEREF id="frame_down" />
-    		<NODEREF id="neil" />
-    	</DESCENDANTS>
-    </NODE>
-
-
-     <NODE id="frame_side1">
-    	<MATERIAL id="null" />
-    	<TEXTURE id="wooden_frame" />
-
-    	<SCALE sx="0.05" sy="1.3" sz="0.08" />
-
-    	<DESCENDANTS>
-    		<NODEREF id="cube"/>
-    	</DESCENDANTS>
-    </NODE>
-
-    <NODE id="frame_side2">
-    	<MATERIAL id="null" />
-    	<TEXTURE id="null" />
-
-    	<TRANSLATION x="0" y="0" z="4" />
-
-    	<DESCENDANTS>
-    		<NODEREF id="frame_side1"/>
-    	</DESCENDANTS>
-    </NODE>
-
-    <NODE id="frame_up">
-    	<MATERIAL id="null" />
-    	<TEXTURE id="wooden_frame" />
-
-    	<TRANSLATION x="0" y="6.1" z="0.05" />
-    	<SCALE sx="0.05" sy="0.09" sz="0.87" />
-
-    	<DESCENDANTS>
-    		<NODEREF id="cube"/>
-    	</DESCENDANTS>
-    </NODE>
-
-    <NODE id="frame_down">
-    	<MATERIAL id="null" />
-    	<TEXTURE id="wooden_frame" />
-
-    	<TRANSLATION x="0" y="1" z="0.05" />
-    	<SCALE sx="0.05" sy="0.09" sz="0.87" />
-
-    	<DESCENDANTS>
-    		<NODEREF id="cube"/>
-    	</DESCENDANTS>
-    </NODE>
-
-    <NODE id="neil">
-    	<MATERIAL id="null" />
-    	<TEXTURE id="neil" />
-
-    	<TRANSLATION x="0.05" y="0" z="0" />
-    	<ROTATION axis="y" angle="-90"/>
-
-    	<DESCENDANTS>
-    		<LEAF type="rectangle" args="4 6.5 0.4 1.1" />
-    	</DESCENDANTS>
-    </NODE>
-
-    <NODE id="copernicus">
-    	<MATERIAL id="null" />
-    	<TEXTURE id="copernicus" />
-
-    	<TRANSLATION x="0.05" y="0" z="0" />
-    	<ROTATION axis="y" angle="-90"/>
-
-    	<DESCENDANTS>
-    		<LEAF type="rectangle" args="4 6.5 0.4 1.1" />
-    	</DESCENDANTS>
-    </NODE>
-
-
-
-
 
 
     <!-- Earth model node -->
-    <NODE id="earth_model" selectable="true">
+    <NODE id="earth_model">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
         <TRANSLATION x="3" y="0" z="2" />
-
-        <ANIMATIONREFS>
-          <ANIMATIONREF id="combo1" />
-        </ANIMATIONREFS>
 
         <DESCENDANTS>
             <NODEREF id="earth" />
@@ -596,21 +367,13 @@
 
     </NODE>
 
-
-
-
-
-
     <!-- Sun model node -->
 
     <NODE id="sun_model">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-         <TRANSLATION x="6" y="0" z="0" />
-        <!-- <ANIMATIONREFS>
-           <ANIMATIONREF id="fag4" />
-         </ANIMATIONREFS> -->
+         <TRANSLATION x="15" y="0" z="0" />
 
         <DESCENDANTS>
             <NODEREF id="sun" />
@@ -641,17 +404,12 @@
 
 
     <!-- Rover node -->
-    <NODE id="rover" selectable="true">
+    <NODE id="rover">
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
         <TRANSLATION x="10" y="0.5" z="10" />
         <SCALE sx="0.5" sy="0.5" sz="0.5" />
-        <ROTATION axis="y" angle="90" />
-
-     <ANIMATIONREFS>
-          <ANIMATIONREF id="combo2" />
-        </ANIMATIONREFS>
 
         <DESCENDANTS>
             <NODEREF id="wheels"/>
@@ -1115,7 +873,7 @@
         <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-         <TRANSLATION x="4" y="8" z="4" />
+         <TRANSLATION x="4" y="10" z="4" />
 
          <DESCENDANTS>
             <NODEREF id="cable" />
@@ -1127,7 +885,7 @@
         <TEXTURE id="null" />
 
         <TRANSLATION x="6" y="4" z="0.5" />
-        <SCALE sx="1" sy="0.7" sz="1" />
+        <SCALE sx="1" sy="0.5" sz="1" />
 
          <DESCENDANTS>
             <NODEREF id="cable" />
@@ -1159,7 +917,7 @@
 
     </NODE>
 
-
+   
     <NODE id="parabole_outside">
     	<MATERIAL id="null" />
         <TEXTURE id="steel" />
@@ -1169,7 +927,7 @@
        	<SCALE sx="0.5" sy="0.5" sz="0.5" />
 
         <DESCENDANTS>
-        	<LEAF type="patch" args="10 15" >
+        	<LEAF type="patch" args="2 3" >
         		<CPLINE>
         			<CPOINT xx="-2.0" yy="-2.5" zz="1.5" ww="1" />
         			<CPOINT xx="-3.5" yy="-1.5" zz="1.5" ww="1" />
@@ -1204,7 +962,7 @@
        	<SCALE sx="0.5" sy="0.5" sz="0.5" />
 
         <DESCENDANTS>
-        	<LEAF type="patch" args="2 10" >
+        	<LEAF type="patch" args="2 3" >
 
         		<CPLINE>
         			<CPOINT xx="2.0" yy="-2.5" zz="1.5" ww="1" />
@@ -1258,7 +1016,7 @@
     	<SCALE sx="1.5" sy="1.5" sz="1.5" />
 
         <DESCENDANTS>
-        	<LEAF type="patch" args="6 10" >
+        	<LEAF type="patch" args="2 3" >
         		<CPLINE>
         			<CPOINT xx="-2.0" yy="-2.5" zz="1.5" ww="1" />
         			<CPOINT xx="-3.5" yy="-1.5" zz="1.5" ww="1" />
@@ -1435,15 +1193,15 @@
     	<TEXTURE id="null" />
 
     	<DESCENDANTS>
-    		<LEAF type="patch" args="5 15" >
-
+    		<LEAF type="patch" args="2 3" >
+    			
     			<CPLINE>
     				<CPOINT xx="-10.0" yy="-2.0" zz="1.0" ww="1" />
     				<CPOINT xx="-10.0" yy="-1.0" zz="5.0" ww="1" />
     				<CPOINT xx="-10.0" yy="1.0" zz="5.0" ww="1" />
     				<CPOINT xx="-10.0" yy="2.0" zz="1.0" ww="1" />
     			</CPLINE>
-
+    			
 
     			<CPLINE>
     				<CPOINT xx="0" yy="-2.0" zz="0" ww="1" />
@@ -1470,15 +1228,15 @@
 
 
     	<DESCENDANTS>
-    		<LEAF type="patch" args="5 15" >
-
+    		<LEAF type="patch" args="2 3" >
+    			
     			<CPLINE>
     				<CPOINT xx="10.0" yy="-2.0" zz="1.0" ww="1" />
     				<CPOINT xx="10.0" yy="-1.0" zz="0.0" ww="1" />
     				<CPOINT xx="10.0" yy="1.0" zz="0.0" ww="1" />
     				<CPOINT xx="10.0" yy="2.0" zz="1.0" ww="1" />
     			</CPLINE>
-
+    		
 
     			<CPLINE>
     				<CPOINT xx="0" yy="-2.0" zz="0" ww="1" />
@@ -1494,7 +1252,7 @@
     				<CPOINT xx="-10.0" yy="2.0" zz="1.0" ww="1" />
     			</CPLINE>
 
-
+    			
     		</LEAF>
 
     	</DESCENDANTS>
@@ -1557,177 +1315,7 @@
 
     </NODE>
 
-
-
-
-
-
-
-
-
-
-    <NODE id="saturn_model">
-        <MATERIAL id="null" />
-        <TEXTURE id="null" />
-
-        <TRANSLATION x="40" y="6" z="7.5" />
-
-
-        <DESCENDANTS>
-            <NODEREF id="cable4" />
-            <NODEREF id="saturn_and_ring" />
-        </DESCENDANTS>
-    </NODE>
-
-    <NODE id="cable4">
-        <MATERIAL id="null" />
-        <TEXTURE id="null" />
-
-
-        <TRANSLATION x="0" y="2.5" z="0" />
-
-
-        <DESCENDANTS>
-            <NODEREF id="cable" />
-        </DESCENDANTS>
-
-    </NODE>
-
-
-    <NODE id="saturn_and_ring" >
-        <MATERIAL id="null" />
-        <TEXTURE id="null" />
-
-        <ROTATION axis="y" angle="90" />
-        <ROTATION axis="x" angle="-20" />
-        <ROTATION axis="z" angle="10" />
-
-
-          <DESCENDANTS>
-            <NODEREF id="ring" />
-            <NODEREF id="saturn" />
-        </DESCENDANTS>
-    </NODE>
-
-    <NODE id="saturn">
-        <MATERIAL id="null"/>
-        <TEXTURE id="saturn"/>
-
-        <ROTATION axis="x" angle="90" />
-
-        <DESCENDANTS>
-            <LEAF type="sphere" args="4.20 50 50" />
-        </DESCENDANTS>
-    </NODE>
-
-
-    <NODE id="ring">
-        <MATERIAL id="null" />
-        <TEXTURE id="saturn_ring" />
-
-        <TRANSLATION x="0" y="0" z="0.5" />
-
-        <DESCENDANTS>
-            <NODEREF id="semi_ring" />
-            <NODEREF id="semi_ring2" />
-        </DESCENDANTS>
-
-    </NODE>
-
-    <NODE id="semi_ring2">
-        <MATERIAL id="null" />
-        <TEXTURE id="null" />
-
-        <TRANSLATION x="0" y="0" z="-1"/>
-        <ROTATION axis="x" angle="180" />
-
-
-        <DESCENDANTS>
-            <NODEREF id="semi_ring"/>
-        </DESCENDANTS>
-    </NODE>
-
-    <NODE id="semi_ring">
-        <MATERIAL id="null" />
-        <TEXTURE id="null" />
-
-        <TRANSLATION x="0" y="0" z="2.5" />
-        <SCALE sx="3.5" sy="0-3" sz="2" />
-        <ROTATION axis="x" angle="90" />
-
-
-        <DESCENDANTS>
-            <NODEREF id="ring_in"/>
-            <NODEREF id="ring_out" />
-        </DESCENDANTS>
-    </NODE>
-
-    <NODE id="ring_in">
-        <MATERIAL id="null" />
-        <TEXTURE id="null" />
-
-
-        <DESCENDANTS>
-            <LEAF type="patch" args="7 17" >
-
-                <CPLINE>
-                    <CPOINT xx="-1.4" yy="-1.5" zz="0" ww="1" />
-                    <CPOINT xx="-1.3" yy="0.7" zz="0.0" ww="1" />
-                    <CPOINT xx="-1.0" yy="1.3" zz="0.0" ww="1" />
-                    <CPOINT xx="0" yy="3.5" zz="0" ww="1" />
-                    <CPOINT xx="1.0" yy="1.3" zz="0.0" ww="1" />
-                    <CPOINT xx="1.3" yy="0.7" zz="0.0" ww="1" />
-                    <CPOINT xx="1.4" yy="-1.5" zz="0" ww="1" />
-                </CPLINE>
-
-
-                <CPLINE>
-                    <CPOINT xx="-1.8" yy="-1.5" zz="0" ww="1" />
-                    <CPOINT xx="-1.7" yy="1.5" zz="0" ww="1" />
-                    <CPOINT xx="-1.0" yy="2.5" zz="0" ww="1" />
-                    <CPOINT xx="0" yy="5.0" zz="0" ww="1" />
-                    <CPOINT xx="1.0" yy="2.5" zz="0" ww="1" />
-                    <CPOINT xx="1.7" yy="1.5" zz="0" ww="1" />
-                    <CPOINT xx="1.8" yy="-1.5" zz="0" ww="1" />
-                </CPLINE>
-            </LEAF>
-
-        </DESCENDANTS>
-    </NODE>
-
-    <NODE id="ring_out">
-        <MATERIAL id="null" />
-        <TEXTURE id="null" />
-
-
-        <DESCENDANTS>
-            <LEAF type="patch" args="7 17" >
-                <CPLINE>
-                    <CPOINT xx="-1.8" yy="-1.5" zz="0" ww="1" />
-                    <CPOINT xx="-1.7" yy="1.5" zz="0" ww="1" />
-                    <CPOINT xx="-1.0" yy="2.5" zz="0" ww="1" />
-                    <CPOINT xx="0" yy="5.0" zz="0" ww="1" />
-                    <CPOINT xx="1.0" yy="2.5" zz="0" ww="1" />
-                    <CPOINT xx="1.7" yy="1.5" zz="0" ww="1" />
-                    <CPOINT xx="1.8" yy="-1.5" zz="0" ww="1" />
-                </CPLINE>
-
-                <CPLINE>
-                    <CPOINT xx="-1.4" yy="-1.5" zz="0" ww="1" />
-                    <CPOINT xx="-1.3" yy="0.7" zz="0.0" ww="1" />
-                    <CPOINT xx="-1.0" yy="1.3" zz="0.0" ww="1" />
-                    <CPOINT xx="0" yy="3.5" zz="0" ww="1" />
-                    <CPOINT xx="1.0" yy="1.3" zz="0.0" ww="1" />
-                    <CPOINT xx="1.3" yy="0.7" zz="0.0" ww="1" />
-                    <CPOINT xx="1.4" yy="-1.5" zz="0" ww="1" />
-                </CPLINE>
-
-            </LEAF>
-
-        </DESCENDANTS>
-    </NODE>
-
-
+   		
 
     </NODES>
 </SCENE>
