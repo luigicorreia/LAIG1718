@@ -38,6 +38,18 @@ XMLscene.prototype.init = function(application) {
 
     this.axis = new CGFaxis(this);
     this.setUpdatePeriod(1000/FPS);
+
+    this.whiteTex = new CGFappearance(this);
+    this.whiteTex.setAmbient(0.3,0.3,0.3,1);
+    this.whiteTex.setDiffuse(1,1,1,1);
+    this.whiteTex.setSpecular(0.8,0.8,0.8,1);
+    this.whiteTex.setShininess(120);
+
+    this.blackTex = new CGFappearance(this);
+    this.blackTex.setAmbient(0.3,0.3,0.3,1);
+    this.blackTex.setDiffuse(0,0,0,1);
+    this.blackTex.setSpecular(0.8,0.8,0.8,1); 
+    this.blackTex.setShininess(120);
 }
 
 /**

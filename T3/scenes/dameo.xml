@@ -1,0 +1,448 @@
+<SCENE>
+
+    <INITIALS>
+        <frustum near="0.5" far="500"/>
+        <translation x="-1" y="1" z="0" />
+        <rotation axis="x" angle="0" />
+        <rotation axis="y" angle="0" />
+        <rotation axis="z" angle="0" />
+        <scale sx="0.25" sy="0.25" sz="0.25" />
+        <reference length="5" />
+    </INITIALS>
+
+    <ILLUMINATION>
+        <ambient r="0.2" g="0.2" b="0.2" a="1" />
+        <background r="0" g="0" b="0" a="1" />
+    </ILLUMINATION>
+
+
+    <!-- Lights -->
+    <LIGHTS>
+       <LIGHT id="light0">
+        <enable value ="1" />
+        <position  x="0" y="10" z="0" w="1" />
+        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+        <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+        <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+    </LIGHT>
+
+    <LIGHT id="light1">
+        <enable value ="1" />
+        <position x="30" y="10" z="0" w="1" />
+        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+        <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+        <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+    </LIGHT>
+
+    <LIGHT id="light2">
+        <enable value ="1" />
+        <position x="0" y="10" z="20" w="1" />
+        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+        <diffuse r="1.0" g="1.0" b="1.0" a="1.0" />
+        <specular r="1.0" g="1.0" b="1.0" a="1.0" />
+    </LIGHT>
+
+    <LIGHT id="light3">
+        <enable value ="1" />
+        <position x="30" y="10" z="20" w="1" />
+        <ambient r="0.2" g="0.2" b="0.2" a="1.0" />
+        <diffuse r="0.6" g="0.6" b="0.6" a="1.0" />
+        <specular r="0.6" g="0.6" b="0.6" a="1.0" />
+    </LIGHT>
+
+</LIGHTS>
+
+<TEXTURES>
+
+    <TEXTURE id="black">
+        <file path="images/black.png" />
+        <amplif_factor s="1" t="1" />
+    </TEXTURE>
+
+    <TEXTURE id="wood">
+        <file path="images/wooden.png" />
+        <amplif_factor s="3" t="5" />
+    </TEXTURE>  
+
+</TEXTURES>
+
+<MATERIALS>
+
+    <MATERIAL id="defaultMaterial">
+        <shininess value="1" />
+        <specular r="0.0" g="0.0" b="0.0" a="1" />
+        <diffuse r="0.4" g="0.4" b="0.4" a="1" />
+        <ambient r="0.4" g="0.4" b="0.4" a="1" />
+        <emission r="0.0" g="0.0" b="0.0" a="1" />
+    </MATERIAL>
+
+</MATERIALS>
+
+<ANIMATIONS>
+</ANIMATIONS>
+
+<LEAVES>
+</LEAVES>
+
+<NODES>
+
+    <ROOT id="root" />
+
+    <!-- The root node -->
+    <NODE id="root">
+        <MATERIAL id="defaultMaterial" />
+        <TEXTURE id="null" />
+
+        <DESCENDANTS>
+            <NODEREF id="board" />
+            <NODEREF id="piece" />
+        </DESCENDANTS>
+
+    </NODE>
+
+
+    <NODE id="piece">
+        <MATERIAL id="defaultMaterial" />
+        <TEXTURE id="null" />
+
+        <DESCENDANTS>
+            <LEAF type="piece" args="white man" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="board">
+        <MATERIAL id="defaultMaterial" />
+        <TEXTURE id="null" />
+
+        <DESCENDANTS>
+            <NODEREF id="b1" />
+            <NODEREF id="b2" />
+            <NODEREF id="b3" />
+            <NODEREF id="b4" />
+            <NODEREF id="frame" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="frame">
+         <MATERIAL id="defaultMaterial" />
+        <TEXTURE id="null" />
+
+        <DESCENDANTS>
+            <NODEREF id="f1" />
+            <NODEREF id="f2" />
+            <NODEREF id="f3" />
+            <NODEREF id="f4" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="f4">
+        <MATERIAL id="null"/>
+        <TEXTURE id="wood"/>
+
+        <TRANSLATION x="-6" y="0" z="34" />
+        <ROTATION axis="x" angle="-90" />
+
+        <DESCENDANTS>
+            <LEAF type="rectangle" args="0 4 40 0" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="f3">
+        <MATERIAL id="null"/>
+        <TEXTURE id="wood"/>
+
+        <TRANSLATION x="-6" y="0" z="-2" />
+        <ROTATION axis="x" angle="-90" />
+
+        <DESCENDANTS>
+            <LEAF type="rectangle" args="0 4 40 0" />
+        </DESCENDANTS>
+    </NODE>
+
+     <NODE id="f2">
+        <MATERIAL id="null"/>
+        <TEXTURE id="wood"/>
+
+        <TRANSLATION x="30" y="0" z="34" />
+        <ROTATION axis="x" angle="-90" />
+
+        <DESCENDANTS>
+            <LEAF type="rectangle" args="0 40 4 0" />
+        </DESCENDANTS>
+    </NODE>
+    
+    <NODE id="f1">
+        <MATERIAL id="null"/>
+        <TEXTURE id="wood"/>
+
+        <TRANSLATION x="-6" y="0" z="34" />
+        <ROTATION axis="x" angle="-90" />
+
+        <DESCENDANTS>
+            <LEAF type="rectangle" args="0 40 4 0" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="b4">
+        <MATERIAL id="defaultMaterial" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="8" y="0" z="0" />
+
+        <DESCENDANTS>
+            <NODEREF id="b3"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="b3">
+        <MATERIAL id="defaultMaterial" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="8" y="0" z="0" />
+
+        <DESCENDANTS>
+            <NODEREF id="b2"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="b2">
+        <MATERIAL id="defaultMaterial" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="8" y="0" z="0" />
+
+        <DESCENDANTS>
+            <NODEREF id="b1"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="b1">
+        <MATERIAL id="defaultMaterial" />
+        <TEXTURE id="null" />
+
+        <DESCENDANTS>
+            <NODEREF id="black_tile_1_1" />
+            <NODEREF id="white_tile_1_2" />
+            <NODEREF id="black_tile_1_3" />
+            <NODEREF id="white_tile_1_4" />
+            <NODEREF id="black_tile_1_5" />
+            <NODEREF id="white_tile_1_6" />
+            <NODEREF id="black_tile_1_7" />
+            <NODEREF id="white_tile_1_8" />
+
+            <NODEREF id="white_tile_2_1" />
+            <NODEREF id="black_tile_2_2" />
+            <NODEREF id="white_tile_2_3" />
+            <NODEREF id="black_tile_2_4" />
+            <NODEREF id="white_tile_2_5" />
+            <NODEREF id="black_tile_2_6" />
+            <NODEREF id="white_tile_2_7" />
+            <NODEREF id="black_tile_2_8" />
+        </DESCENDANTS>
+    </NODE>
+
+
+    <!-- 1ST ROW TILES -->
+
+    <NODE id="black_tile_1_1">
+        <MATERIAL id="null"/>
+        <TEXTURE id="black"/>
+
+        <TRANSLATION x="-2" y="0" z="2" />
+        <ROTATION axis="x" angle="-90" />
+
+        <DESCENDANTS>
+            <LEAF type="rectangle" args="0 4 4 0" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="white_tile_1_2">
+        <MATERIAL id="null"/>
+        <TEXTURE id="null"/>
+
+        <TRANSLATION x="-2" y="0" z="6" />
+        <ROTATION axis="x" angle="-90" />
+
+        <DESCENDANTS>
+            <LEAF type="rectangle" args="0 4 4 0" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="black_tile_1_3">
+        <MATERIAL id="null"/>
+        <TEXTURE id="black"/>
+
+        <TRANSLATION x="-2" y="0" z="10" />
+        <ROTATION axis="x" angle="-90" />
+
+        <DESCENDANTS>
+            <LEAF type="rectangle" args="0 4 4 0" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="white_tile_1_4">
+        <MATERIAL id="null"/>
+        <TEXTURE id="null"/>
+
+        <TRANSLATION x="-2" y="0" z="14" />
+        <ROTATION axis="x" angle="-90" />
+
+        <DESCENDANTS>
+            <LEAF type="rectangle" args="0 4 4 0" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="black_tile_1_5">
+        <MATERIAL id="null"/>
+        <TEXTURE id="black"/>
+
+        <TRANSLATION x="-2" y="0" z="18" />
+        <ROTATION axis="x" angle="-90" />
+
+        <DESCENDANTS>
+            <LEAF type="rectangle" args="0 4 4 0" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="white_tile_1_6">
+        <MATERIAL id="null"/>
+        <TEXTURE id="null"/>
+
+        <TRANSLATION x="-2" y="0" z="22" />
+        <ROTATION axis="x" angle="-90" />
+
+        <DESCENDANTS>
+            <LEAF type="rectangle" args="0 4 4 0" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="black_tile_1_7">
+        <MATERIAL id="null"/>
+        <TEXTURE id="black"/>
+
+        <TRANSLATION x="-2" y="0" z="26" />
+        <ROTATION axis="x" angle="-90" />
+
+        <DESCENDANTS>
+            <LEAF type="rectangle" args="0 4 4 0" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="white_tile_1_8">
+        <MATERIAL id="null"/>
+        <TEXTURE id="null"/>
+
+        <TRANSLATION x="-2" y="0" z="30" />
+        <ROTATION axis="x" angle="-90" />
+
+        <DESCENDANTS>
+            <LEAF type="rectangle" args="0 4 4 0" />
+        </DESCENDANTS>
+    </NODE>
+
+
+    <!-- 2AND ROW TILES -->
+
+    <NODE id="white_tile_2_1">
+        <MATERIAL id="null"/>
+        <TEXTURE id="null"/>
+
+        <TRANSLATION x="2" y="0" z="2" />
+        <ROTATION axis="x" angle="-90" />
+
+        <DESCENDANTS>
+            <LEAF type="rectangle" args="0 4 4 0" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="black_tile_2_2">
+        <MATERIAL id="null"/>
+        <TEXTURE id="black"/>
+
+        <TRANSLATION x="2" y="0" z="6" />
+        <ROTATION axis="x" angle="-90" />
+
+        <DESCENDANTS>
+            <LEAF type="rectangle" args="0 4 4 0" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="white_tile_2_3">
+        <MATERIAL id="null"/>
+        <TEXTURE id="null"/>
+
+        <TRANSLATION x="2" y="0" z="10" />
+        <ROTATION axis="x" angle="-90" />
+
+        <DESCENDANTS>
+            <LEAF type="rectangle" args="0 4 4 0" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="black_tile_2_4">
+        <MATERIAL id="null"/>
+        <TEXTURE id="black"/>
+
+        <TRANSLATION x="2" y="0" z="14" />
+        <ROTATION axis="x" angle="-90" />
+
+        <DESCENDANTS>
+            <LEAF type="rectangle" args="0 4 4 0" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="white_tile_2_5">
+        <MATERIAL id="null"/>
+        <TEXTURE id="null"/>
+
+        <TRANSLATION x="2" y="0" z="18" />
+        <ROTATION axis="x" angle="-90" />
+
+        <DESCENDANTS>
+            <LEAF type="rectangle" args="0 4 4 0" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="black_tile_2_6">
+        <MATERIAL id="null"/>
+        <TEXTURE id="black"/>
+
+        <TRANSLATION x="2" y="0" z="22" />
+        <ROTATION axis="x" angle="-90" />
+
+        <DESCENDANTS>
+            <LEAF type="rectangle" args="0 4 4 0" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="white_tile_2_7">
+        <MATERIAL id="null"/>
+        <TEXTURE id="null"/>
+
+        <TRANSLATION x="2" y="0" z="26" />
+        <ROTATION axis="x" angle="-90" />
+
+        <DESCENDANTS>
+            <LEAF type="rectangle" args="0 4 4 0" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="black_tile_2_8">
+        <MATERIAL id="null"/>
+        <TEXTURE id="black"/>
+
+        <TRANSLATION x="2" y="0" z="30" />
+        <ROTATION axis="x" angle="-90" />
+
+        <DESCENDANTS>
+            <LEAF type="rectangle" args="0 4 4 0" />
+        </DESCENDANTS>
+    </NODE>
+
+
+
+
+
+</NODES>
+
+</SCENE>
