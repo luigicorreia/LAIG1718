@@ -60,3 +60,16 @@ MyInterface.prototype.addSelectables = function(selectables, graph) {
             }
         });
 }
+
+MyInterface.prototype.chooseScene = function(scenes) {
+    var group = this.gui.addFolder("Scenes");
+    group.open();
+    group.add(this.scene, "scenes", scenes).onChange(function(v) {
+            for (var i = 0; i < scenes.length; i++) {
+                if (scenes[i] == v) {
+                   activeScene = scenes[i];
+                }
+            }
+        });
+}
+

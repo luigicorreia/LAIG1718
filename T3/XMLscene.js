@@ -16,6 +16,10 @@ function XMLscene(interface) {
 
     this.totalTime = 0;
 
+    this.scenes = ["dameo.xml", "dameo2.xml"];
+
+    this.activeScene = 0;
+
 }
 
 XMLscene.prototype = Object.create(CGFscene.prototype);
@@ -50,6 +54,10 @@ XMLscene.prototype.init = function(application) {
     this.blackTex.setDiffuse(0,0,0,1);
     this.blackTex.setSpecular(0.8,0.8,0.8,1); 
     this.blackTex.setShininess(120);
+
+    this.setPickEnabled(true);
+
+   // this.board = new MyBoard();
 }
 
 /**
@@ -113,6 +121,8 @@ XMLscene.prototype.onGraphLoaded = function()
     this.interface.addLightsGroup(this.graph.lights);
 
     this.interface.addSelectables(this.graph.selectables, this.graph);
+
+    this.interface.chooseScene(this.scenes, this.graph);
 }
 
 /**
@@ -181,3 +191,25 @@ XMLscene.prototype.update = function(currTime) {
     this.lastTime = currTime;
     this.totalTime += this.deltatime;
 }
+
+XMLscene.prototype.getScene = function() {
+    return this.scenes[this.activeScene];
+}
+
+XMLscene.prototype.logPicking = function ()
+{
+    if (this.pickMode == false) {
+        if (this.pickResults != null && this.pickResults.length > 0) {
+            for (var i=0; i< this.pickResults.length; i++) {
+                var obj = this.pickResults[i][0];
+                if (obj)
+                {
+                    var customId = this.pickResults[i][1];              
+                    console.log("Picked object: " + obj + ", with pick id " + customId);
+                }
+            }
+            this.pickResults.splice(0,this.pickResults.length);
+        }       
+    }
+}
+

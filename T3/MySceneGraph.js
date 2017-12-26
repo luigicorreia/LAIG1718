@@ -21,7 +21,7 @@ function MySceneGraph(filename, scene) {
     // Establish bidirectional references between scene and graph.
     this.scene = scene;
     scene.graph = this;
-
+    this.filename = filename;
     this.nodes = [];
 
     this.idRoot = null;                    // The id of the root element.
@@ -40,7 +40,7 @@ function MySceneGraph(filename, scene) {
 	 * If any error occurs, the reader calls onXMLError on this object, with an error message
 	 */
 
-    this.reader.open('scenes/' + filename, this);
+    this.reader.open('scenes/' + this.filename, this);
 
 
 
@@ -1517,7 +1517,7 @@ MySceneGraph.prototype.parseNodes = function(nodesNode) {
                 else
 					if (descendants[j].nodeName == "LEAF")
 					{
-						var type=this.reader.getItem(descendants[j], 'type', ['rectangle', 'cylinder', 'sphere', 'triangle','patch','piece']);
+						var type=this.reader.getItem(descendants[j], 'type', ['rectangle', 'cylinder', 'sphere', 'triangle','patch','piece','object','board']);
 
 						if (type != null)
 							this.log("   Leaf: "+ type);

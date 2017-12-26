@@ -15,7 +15,10 @@
  }else if(xmlelem.attributes.length == 2){
    this.type = xmlelem.attributes[0].value;
    this.args = xmlelem.attributes[1].value;
- }else alert("wrong number of arguments! ");
+ }else if(xmlelem.attributes.length == 1){
+    this.type = xmlelem.attributes[0].value;
+ }
+ else alert("wrong number of arguments! ");
 
  switch(this.type){
    case "rectangle":
@@ -35,6 +38,13 @@
    break;
    case "piece":
    this.obj = new MyPiece(graph.scene, String(this.args));
+   break;
+   case "object":
+   this.obj = new MyObj(graph.scene, String(this.args));
+   break;
+  case "board":
+   this.obj = new MyBoard(graph.scene);
+   break;
    default:
    break;
  }

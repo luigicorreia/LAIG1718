@@ -16,7 +16,7 @@
 	if(this.type == "man")
 		this.height = 1;
 	else if(this.type == "king")
-		this.height = 3;
+		this.height = 2;
 	else
 		console.log("Wrong type of piece... Possible types: man, king");
 
@@ -58,9 +58,4 @@
  		this.scene.scale(this.topRad, this.topRad, 1);
  		this.topCircle.display();
  	this.scene.popMatrix();
-
- 	this.scene.pushMatrix();
- 		this.scene.rotate(-Math.PI/2, 1, 0, 0);
- 	this.scene.popMatrix();
-	
  };
