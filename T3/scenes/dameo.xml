@@ -94,22 +94,11 @@
         <TEXTURE id="null" />
 
         <DESCENDANTS>
-            <NODEREF id="board" />
-            <NODEREF id="table" />
             <NODEREF id="base" />
         </DESCENDANTS>
 
     </NODE>
 
-
-    <NODE id="board">
-        <MATERIAL id="defaultMaterial" />
-        <TEXTURE id="null" />
-
-        <DESCENDANTS>
-            <LEAF type="board" />
-        </DESCENDANTS>
-    </NODE>
 
     <NODE id="base">
         <MATERIAL id="defaultMaterial" />
@@ -117,7 +106,7 @@
 
        <TRANSLATION x="-6" y="-2.7" z="-6" />
 
-        <SCALE sx="8" sy="0.5" sz="8"/>
+        <SCALE sx="0.01" sy="0.01" sz="0.01"/>
 
         <DESCENDANTS>
             <NODEREF id="cube"/>

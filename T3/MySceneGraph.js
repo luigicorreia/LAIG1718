@@ -15,7 +15,7 @@ var NODES_INDEX = 7;
  * MySceneGraph class, representing the scene graph.
  * @constructor
  */
-function MySceneGraph(filename, scene) {
+function MySceneGraph( filename, scene) {
     this.loadedOk = null ;
 
     // Establish bidirectional references between scene and graph.
@@ -33,6 +33,7 @@ function MySceneGraph(filename, scene) {
 
     // File reading
     this.reader = new CGFXMLreader();
+    this.activeEnvironment = 0;
 
     /*
 	 * Read the contents of the xml file, and refer to this class for loading and error handlers.
@@ -68,6 +69,11 @@ function MySceneGraph(filename, scene) {
     this.testShaders[4].setUniformsValues({uSampler2: 1});
     this.testShaders[5].setUniformsValues({uSampler2: 1});
     this.testShaders[7].setUniformsValues({uSampler2: 1});
+
+    this.env1 = new MyFirstEnvironment(this.scene);
+    this.env2 = new MySecondEnvironment(this.scene);
+
+    this.environments = [this.env1,this.env2];
 
 
 }
@@ -1682,6 +1688,7 @@ MySceneGraph.prototype.transformationsdisplay = function(node,texturetmp,materia
     }
 
     this.scene.popMatrix();
+
 }
 
 /**
@@ -1689,5 +1696,16 @@ MySceneGraph.prototype.transformationsdisplay = function(node,texturetmp,materia
  */
 MySceneGraph.prototype.displayScene = function() {
 	// entry point for graph rendering
-   this.transformationsdisplay(this.nodes[this.idRoot], null, null);
+    
+    this.transformationsdisplay(this.nodes[this.idRoot], null, null);
+    this.scene.pushMatrix();
+        let board = new MyBoard(this.scene);
+        board.display();
+    this.scene.popMatrix();
+    
+    this.scene.pushMatrix();
+        this.environments[this.activeEnvironment].display();
+    this.scene.popMatrix();
+
+
 }

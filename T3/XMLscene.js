@@ -16,9 +16,7 @@ function XMLscene(interface) {
 
     this.totalTime = 0;
 
-    this.scenes = ["dameo.xml", "dameo2.xml"];
-
-    this.activeScene = 0;
+    this.scenes = {};
 
 }
 
@@ -32,6 +30,8 @@ XMLscene.prototype.init = function(application) {
     CGFscene.prototype.init.call(this, application);
 
     this.initCameras();
+
+    this.scenes = ["wood","red"];
 
     this.enableTextures(true);
 
@@ -52,12 +52,26 @@ XMLscene.prototype.init = function(application) {
     this.blackTex = new CGFappearance(this);
     this.blackTex.setAmbient(0.3,0.3,0.3,1);
     this.blackTex.setDiffuse(0,0,0,1);
-    this.blackTex.setSpecular(0.8,0.8,0.8,1); 
+    this.blackTex.setSpecular(0.2,0.2,0.2,1); 
     this.blackTex.setShininess(120);
+
+    this.woodTex = new CGFappearance(this);
+    this.woodTex.setAmbient(0.3,0.3,0.3,1);
+    this.woodTex.setDiffuse(0.6,0.6,0.6,1);
+    this.woodTex.setSpecular(0.8,0.8,0.8,1); 
+    this.woodTex.setShininess(120);
+    this.woodTex.loadTexture("../T3/scenes/images/wooden.png");
+    this.woodTex.setTextureWrap("MIRRORED_REPEAT", "MIRRORED_REPEAT");
+
+    this.redTex = new CGFappearance(this);
+    this.redTex.setAmbient(0.5,0.1,0.1,1);
+    this.redTex.setDiffuse(0.9,0,0,1);
+    this.redTex.setSpecular(0.8,0.3,0.3,1); 
+    this.redTex.setShininess(120);
+
 
     this.setPickEnabled(true);
 
-   // this.board = new MyBoard();
 }
 
 /**
@@ -98,7 +112,11 @@ XMLscene.prototype.initLights = function() {
  * Initializes the scene cameras.
  */
 XMLscene.prototype.initCameras = function() {
-    this.camera = new CGFcamera(0.4,0.1,500,vec3.fromValues(15, 15, 15),vec3.fromValues(0, 0, 0));
+    this.cameraPerspectives = [];
+    this.cameraPerspectives[0] = [vec3.fromValues(24, 20, 4), vec3.fromValues(-2, -1, 4)];
+    this.cameraPerspectives[1] = [vec3.fromValues(-18, 120, 18), vec3.fromValues(18, 0, 18)];
+
+    this.camera = new CGFcamera(0.4,0.1,500,this.cameraPerspectives[0][0],this.cameraPerspectives[0][1]);
 }
 
 /* Handler called when the graph is finally loaded.
@@ -192,9 +210,6 @@ XMLscene.prototype.update = function(currTime) {
     this.totalTime += this.deltatime;
 }
 
-XMLscene.prototype.getScene = function() {
-    return this.scenes[this.activeScene];
-}
 
 XMLscene.prototype.logPicking = function ()
 {

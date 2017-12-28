@@ -14,7 +14,7 @@ function getUrlVars() {
 serialInclude(['../lib/CGF.js', 'XMLscene.js', 'MySceneGraph.js',
 			 'MyGraphNode.js', 'MyGraphLeaf.js', 'MyInterface.js','MyTriangle.js',
        'MyRectangle.js','MySphere.js','MyCylinderWithTopAndBottom.js','MyCylinder.js','MyCircle.js','MyPatch.js',
-        'MyAnimation.js', 'MyLinearAnimation.js','MyCircularAnimation.js','MyBezierAnimation.js','MyComboAnimation.js', 'MyPiece.js', 'MyBoard.js', 'MyObj.js', 'webgl-obj-loader.js',
+        'MyAnimation.js', 'MyLinearAnimation.js','MyCircularAnimation.js','MyBezierAnimation.js','MyComboAnimation.js', 'MyPiece.js', 'MyBoard.js', 'MyObj.js', 'webgl-obj-loader.js', 'MyFirstEnvironment.js', 'MySecondEnvironment.js' ,'MySquare.js',
 
 main=function()
 {
@@ -29,27 +29,12 @@ main=function()
     app.setInterface(myInterface);
 
     myInterface.setActiveCamera(myScene.camera);
-    /*
-    if(myScene.getScene() == "dameo.xml"){
-        var filename=getUrlVars()['file'] || "dameo.xml";
     
-        var myGraph = new MySceneGraph(filename, myScene);
-
-        app.run();
-    }
-    else if(myScene.getScene() == "dameo2.xml"){
-        var filename=getUrlVars()['file'] || "dameo2.xml";
-
-        var myGraph = new MySceneGraph(filename, myScene);
-
-        app.run();
-    }
-    */
-      var filename=getUrlVars()['file'] || "dameo.xml";
+    var filename=getUrlVars()['file'] || "dameo.xml";
     
-        var myGraph = new MySceneGraph(filename, myScene);
+    var myGraph = new MySceneGraph(filename, myScene);
 
-        app.run();
+    app.run();
     
     
 }

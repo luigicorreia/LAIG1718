@@ -6,9 +6,6 @@ function MyBoard(scene){
 	this.rectangle = new MyRectangle(this.scene, "0 4 4 0");
 
 	this.tiles = [];
-
-	console.log(this.board);
-
 };
 
 MyBoard.prototype = Object.create(CGFobject.prototype);

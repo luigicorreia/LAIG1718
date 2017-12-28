@@ -28,11 +28,13 @@
  MyCylinderWithTopAndBottom.prototype.display = function() {
 
  	this.scene.pushMatrix();
+ 		this.scene.rotate(-Math.PI/2, 1, 0, 0);
 		this.cylinder.display();
  	this.scene.popMatrix();
 
   if(this.botCap == 1){
   		this.scene.pushMatrix();
+  		this.scene.rotate(-Math.PI/2, 1, 0, 0);
    		this.scene.rotate(Math.PI, 0, 1, 0);
    		this.scene.scale(this.botRad, this.botRad, 1);
   		this.topCircle.display();
@@ -41,6 +43,7 @@
 
 	if(this.topCap == 1){
 		this.scene.pushMatrix();
+		this.scene.rotate(-Math.PI/2, 1, 0, 0);
  		this.scene.translate(0, 0, this.height);
  		this.scene.scale(this.topRad, this.topRad, 1);
 		this.topCircle.display();
