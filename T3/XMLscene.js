@@ -18,6 +18,13 @@ function XMLscene(interface) {
 
     this.scenes = {};
 
+    this.counter = 0;
+
+    this.moving = 0;
+
+    this.matrix;
+
+    this.player = 0;
 }
 
 XMLscene.prototype = Object.create(CGFscene.prototype);
@@ -114,9 +121,10 @@ XMLscene.prototype.initLights = function() {
 XMLscene.prototype.initCameras = function() {
     this.cameraPerspectives = [];
     this.cameraPerspectives[0] = [vec3.fromValues(24, 20, 4), vec3.fromValues(-2, -1, 4)];
-    this.cameraPerspectives[1] = [vec3.fromValues(-18, 120, 18), vec3.fromValues(18, 0, 18)];
+    this.cameraPerspectives[1] = [vec3.fromValues(-15, 20, 4), vec3.fromValues(4, -1, 4)];
 
     this.camera = new CGFcamera(0.4,0.1,500,this.cameraPerspectives[0][0],this.cameraPerspectives[0][1]);
+
 }
 
 /* Handler called when the graph is finally loaded.
@@ -211,16 +219,43 @@ XMLscene.prototype.update = function(currTime) {
 }
 
 
-XMLscene.prototype.logPicking = function ()
-{
+XMLscene.prototype.logPicking = function (){
     if (this.pickMode == false) {
         if (this.pickResults != null && this.pickResults.length > 0) {
             for (var i=0; i< this.pickResults.length; i++) {
                 var obj = this.pickResults[i][0];
                 if (obj)
-                {
-                    var customId = this.pickResults[i][1];              
-                    console.log("Picked object: " + obj + ", with pick id " + customId);
+                {           
+                    if(this.counter == 0){
+                        var customId = this.pickResults[i][1];  
+                        console.log("Picked object: " + obj + ", with pick id " + customId);
+                        this.initialX = this.graph.board.board[customId-1][0];
+                        this.initialZ = this.graph.board.board[customId-1][1];
+                        console.log("x: " + this.initialX + " z: " + this.initialZ);
+                        this.counter = this.counter + 1;
+                    }
+                    else if(this.counter == 1){
+                        var customId = this.pickResults[i][1];  
+                        console.log("Picked object: " + obj + ", with pick id " + customId);
+                        this.finalX = this.graph.board.board[customId-1][0];
+                        this.finalZ = this.graph.board.board[customId-1][1]
+                        console.log("x: " + this.finalX + " z: " + this.finalZ);
+                        
+
+                        console.log("Moving...");
+                        //this.moving = 1;
+                        //this.animation = this.graph.movePiece([initialX,0,initialZ], [finalX,0,finalZ]);
+                        this.move();
+                        if(this.player == 0){
+                            this.changeCamera(1);
+                            this.player = 1;
+                        }
+                        else if(this.player == 1){
+                            this.changeCamera(0);
+                            this.player = 0;
+                        }
+                        this.counter = 0;
+                    }
                 }
             }
             this.pickResults.splice(0,this.pickResults.length);
@@ -228,3 +263,23 @@ XMLscene.prototype.logPicking = function ()
     }
 }
 
+XMLscene.prototype.move = function(){
+    for(var i = 0; i < this.graph.board.pieces.length; i++){
+        if(this.graph.board.pieces[i][1] == this.initialX && this.graph.board.pieces[i][2] == this.initialZ){
+            console.log("found one");
+            this.graph.board.pieces.splice(i,1);
+            if(this.graph.board.pieces[i][0].texture == this.whiteTex){
+               this.graph.board.pieces.push([new MyPiece(this, "white man"),this.finalX,this.finalZ]);
+            }
+           else if(this.graph.board.pieces[i][0].texture == this.blackTex){
+            this.graph.board.pieces.push([new MyPiece(this, "black man"),this.finalX,this.finalZ]);
+            }
+        console.log(this.graph.board.pieces);
+        break;
+        }
+    }
+}
+
+XMLscene.prototype.changeCamera = function(player){
+     this.camera = new CGFcamera(0.4,0.1,500,this.cameraPerspectives[player][0],this.cameraPerspectives[player][1]);
+}

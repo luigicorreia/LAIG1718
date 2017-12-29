@@ -30,6 +30,8 @@ MyInterface.prototype.init = function(application) {
     return true;
 };
 
+
+
 /**
  * Adds a folder containing the IDs of the lights passed as parameter.
  */

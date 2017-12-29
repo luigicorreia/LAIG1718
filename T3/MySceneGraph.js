@@ -23,7 +23,7 @@ function MySceneGraph( filename, scene) {
     scene.graph = this;
     this.filename = filename;
     this.nodes = [];
-
+    this.board = new MyBoard(this.scene);
     this.idRoot = null;                    // The id of the root element.
 
     this.axisCoords = [];
@@ -1698,9 +1698,9 @@ MySceneGraph.prototype.displayScene = function() {
 	// entry point for graph rendering
     
     this.transformationsdisplay(this.nodes[this.idRoot], null, null);
+    
     this.scene.pushMatrix();
-        let board = new MyBoard(this.scene);
-        board.display();
+        this.board.display();
     this.scene.popMatrix();
     
     this.scene.pushMatrix();
@@ -1708,4 +1708,16 @@ MySceneGraph.prototype.displayScene = function() {
     this.scene.popMatrix();
 
 
+}
+
+MySceneGraph.prototype.movePiece = function(point1, point4) {
+    
+    var point2 = [point1[0]-1, 3, point1[2]];
+    var point3 = [point4[0]+1,3,point4[2]];
+
+    var controlPoints = [point1,point2,point3,point4];
+
+    var animation = new MyBezierAnimation(this.scene,2, controlPoints);
+
+    return animation;
 }

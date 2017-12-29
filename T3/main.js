@@ -28,7 +28,7 @@ main=function()
     app.setScene(myScene);
     app.setInterface(myInterface);
 
-    myInterface.setActiveCamera(myScene.camera);
+    //myInterface.setActiveCamera(myScene.camera);
     
     var filename=getUrlVars()['file'] || "dameo.xml";
     

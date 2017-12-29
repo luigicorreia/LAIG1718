@@ -6,6 +6,13 @@ function MyBoard(scene){
 	this.rectangle = new MyRectangle(this.scene, "0 4 4 0");
 
 	this.tiles = [];
+
+	this.pieces = [];
+
+	this.initPieces();
+
+	console.log(this.pieces);
+
 };
 
 MyBoard.prototype = Object.create(CGFobject.prototype);
@@ -21,6 +28,20 @@ MyBoard.prototype.matrix = function() {
 	}
 
 	return matrix;
+}
+
+MyBoard.prototype.initPieces = function() {
+
+	for(let i = 0; i < 64; i++){
+		if(i < 8 || (9 <= i && i <= 14) || (18 <= i && i <= 21)){
+				let piece = new MyPiece(this.scene, "black man");
+				this.pieces.push([piece,this.board[i][0],this.board[i][1]]);
+		}
+		else if((42 <= i && i <= 45) || (49 <= i && i <= 54) || (56 <= i && i <= 63)){
+				let piece = new MyPiece(this.scene, "white man");
+				this.pieces.push([piece,this.board[i][0],this.board[i][1]]);
+		}
+	}
 }
 
 MyBoard.prototype.color = function(i) {
@@ -43,19 +64,22 @@ MyBoard.prototype.color = function(i) {
 }
 
 MyBoard.prototype.fill = function() {
+
+	var n = 0;
+
 	for(let i = 0; i < 64; i++){
 		if(i < 8 || (9 <= i && i <= 14) || (18 <= i && i <= 21)){
 			this.scene.pushMatrix();
-				let piece = new MyPiece(this.scene, "black man");
-				this.scene.translate(this.board[i][0],0,this.board[i][1]);
-				piece.display();
+				this.scene.translate(this.pieces[n][1],0,this.pieces[n][2]);
+				this.pieces[n][0].display();
+				n = n+1;
 			this.scene.popMatrix();
 		}
 		else if((42 <= i && i <= 45) || (49 <= i && i <= 54) || (56 <= i && i <= 63)){
 			this.scene.pushMatrix();
-				let piece = new MyPiece(this.scene, "white man");
-				this.scene.translate(this.board[i][0],0,this.board[i][1]);
-				piece.display();
+				this.scene.translate(this.pieces[n][1],0,this.pieces[n][2]);
+				this.pieces[n][0].display();
+				n = n+1;
 			this.scene.popMatrix();
 		}
 	}
