@@ -9,7 +9,7 @@ MyFirstEnvironment.prototype.display = function() {
 
 
 	let square = new MySquare(this.scene);
-
+	let rectangle = new MyRectangle(this.scene, "0 180 180 0");
 
 	this.scene.pushMatrix();
 		this.scene.translate(-2.5,-3,-2.5);
@@ -25,4 +25,30 @@ MyFirstEnvironment.prototype.display = function() {
 		this.scene.woodTex.apply();
 		square.display();
 	this.scene.popMatrix();
+
+	this.scene.pushMatrix();
+		this.scene.scale(1,10,1);
+		this.scene.translate(-20,-8.5,-25);
+		square.display();
+	this.scene.popMatrix();
+
+	this.scene.pushMatrix();
+		this.scene.scale(1,10,1);
+		this.scene.translate(40,-8.5,-25);
+		square.display();
+	this.scene.popMatrix();
+
+	this.scene.pushMatrix();
+		this.scene.scale(1,10,1);
+		this.scene.translate(-20,-8.5,40);
+		square.display();
+	this.scene.popMatrix();
+
+	this.scene.pushMatrix();
+		this.scene.scale(1,10,1);
+		this.scene.translate(40,-8.5,40);
+		square.display();
+	this.scene.popMatrix();
+
+
 }

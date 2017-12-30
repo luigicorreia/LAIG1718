@@ -1654,10 +1654,10 @@ MySceneGraph.prototype.transformationsdisplay = function(node,texturetmp,materia
       }
 
     for(var i = 0; i < node.children.length; i++){  //faz recursividade dos nós
-           if(this.selectables.includes(node.nodeID) && this.selectables[this.activeSelectable] == node.nodeID){
-             this.scene.setActiveShader(this.activeShader);
+           if(this.selectables.includes(node.nodeID) && this.activeEnvironment == 0){
+            /* this.scene.setActiveShader(this.activeShader);
              this.transformationsdisplay(this.nodes[node.children[i]],textura,material);
-             this.scene.setActiveShader(this.scene.defaultShader);
+             this.scene.setActiveShader(this.scene.defaultShader);*/
            }
            else
             this.transformationsdisplay(this.nodes[node.children[i]],textura,material);
@@ -1677,10 +1677,10 @@ MySceneGraph.prototype.transformationsdisplay = function(node,texturetmp,materia
 
      node.leaves[i].scaleTexCoords(s,t);
 
-     if(this.selectables.includes(node.nodeID) && this.selectables[this.activeSelectable] == node.nodeID){
-       this.scene.setActiveShader(this.activeShader);
+     if(this.selectables.includes(node.nodeID) && this.activeEnvironment == 0){
+      /* this.scene.setActiveShader(this.activeShader);
        node.leaves[i].display();
-       this.scene.setActiveShader(this.scene.defaultShader);
+       this.scene.setActiveShader(this.scene.defaultShader);*/
      }
      else {
        node.leaves[i].display();

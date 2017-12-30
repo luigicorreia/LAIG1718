@@ -25,6 +25,12 @@ function XMLscene(interface) {
     this.matrix;
 
     this.player = 0;
+
+    this.pc_vs_pc = false;
+
+    this.human_vs_pc = false;
+
+    this.human_vs_human = false;
 }
 
 XMLscene.prototype = Object.create(CGFscene.prototype);
@@ -61,6 +67,7 @@ XMLscene.prototype.init = function(application) {
     this.blackTex.setDiffuse(0,0,0,1);
     this.blackTex.setSpecular(0.2,0.2,0.2,1); 
     this.blackTex.setShininess(120);
+    this.blackTex.loadTexture("../T3/scenes/images/black.png");
 
     this.woodTex = new CGFappearance(this);
     this.woodTex.setAmbient(0.3,0.3,0.3,1);
@@ -69,6 +76,14 @@ XMLscene.prototype.init = function(application) {
     this.woodTex.setShininess(120);
     this.woodTex.loadTexture("../T3/scenes/images/wooden.png");
     this.woodTex.setTextureWrap("MIRRORED_REPEAT", "MIRRORED_REPEAT");
+
+    this.spaceTex = new CGFappearance(this);
+    this.spaceTex.setAmbient(0.3,0.3,0.3,1);
+    this.spaceTex.setDiffuse(0.6,0.6,0.6,1);
+    this.spaceTex.setSpecular(0.8,0.8,0.8,1); 
+    this.spaceTex.setShininess(120);
+    this.spaceTex.loadTexture("../T3/scenes/images/spacejam.jpg");
+    this.spaceTex.setTextureWrap('CLAMP_TO_EDGE', 'CLAMP_TO_EDGE');
 
     this.redTex = new CGFappearance(this);
     this.redTex.setAmbient(0.5,0.1,0.1,1);
@@ -122,8 +137,9 @@ XMLscene.prototype.initCameras = function() {
     this.cameraPerspectives = [];
     this.cameraPerspectives[0] = [vec3.fromValues(24, 20, 4), vec3.fromValues(-2, -1, 4)];
     this.cameraPerspectives[1] = [vec3.fromValues(-15, 20, 4), vec3.fromValues(4, -1, 4)];
+    this.cameraPerspectives[2] = [vec3.fromValues(7, 40, 80), vec3.fromValues(7, 3, 0)];
 
-    this.camera = new CGFcamera(0.4,0.1,500,this.cameraPerspectives[0][0],this.cameraPerspectives[0][1]);
+    this.camera = new CGFcamera(0.4,0.1,500,this.cameraPerspectives[2][0],this.cameraPerspectives[2][1]);
 
 }
 
@@ -144,11 +160,15 @@ XMLscene.prototype.onGraphLoaded = function()
     this.initLights();
 
     // Adds lights group.
+    this.interface.addButtons();
+
     this.interface.addLightsGroup(this.graph.lights);
 
     this.interface.addSelectables(this.graph.selectables, this.graph);
 
     this.interface.chooseScene(this.scenes, this.graph);
+
+    this.interface.chooseMode();
 }
 
 /**
@@ -282,4 +302,13 @@ XMLscene.prototype.move = function(){
 
 XMLscene.prototype.changeCamera = function(player){
      this.camera = new CGFcamera(0.4,0.1,500,this.cameraPerspectives[player][0],this.cameraPerspectives[player][1]);
+}
+
+XMLscene.prototype.StartGame = function(){
+    if(!this.pc_vs_pc && !this.human_vs_pc && !this.human_vs_human){
+        alert("Please, choose a game mode");
+    }
+    else{
+        this.changeCamera(0);
+    }
 }

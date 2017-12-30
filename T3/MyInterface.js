@@ -31,7 +31,9 @@ MyInterface.prototype.init = function(application) {
 };
 
 
-
+MyInterface.prototype.addButtons = function() {
+    this.gui.add(this.scene, 'StartGame');
+}
 /**
  * Adds a folder containing the IDs of the lights passed as parameter.
  */
@@ -75,4 +77,16 @@ MyInterface.prototype.chooseScene = function(scenes, graph) {
             }
         });
 }
+
+
+MyInterface.prototype.chooseMode = function() {
+
+    var group = this.gui.addFolder("Modes");
+    group.open();
+    group.add(this.scene, 'pc_vs_pc');
+    group.add(this.scene, 'human_vs_pc');
+    group.add(this.scene, 'human_vs_human');
+
+}
+
 

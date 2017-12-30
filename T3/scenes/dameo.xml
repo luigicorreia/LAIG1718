@@ -61,8 +61,43 @@
 
     <TEXTURE id="wood">
         <file path="images/wooden.png" />
-        <amplif_factor s="3" t="5" />
+        <amplif_factor s="20" t="20" />
+    </TEXTURE>
+
+    <TEXTURE id="wallpaper">
+        <file path="images/wallpaper.jpg" />
+        <amplif_factor s="20" t="20" />
     </TEXTURE>  
+
+    <TEXTURE id="space">
+         <file path="images/space.jpg" />
+        <amplif_factor s="180" t="180" />
+    </TEXTURE> 
+
+    <TEXTURE id="neil">
+        <file path="images/neil.jpg" />
+        <amplif_factor s="4" t="5" />
+    </TEXTURE>
+
+    <TEXTURE id="copernicus">
+        <file path="images/copernicus.jpg" />
+        <amplif_factor s="3.5" t="5" />
+    </TEXTURE>
+
+    <TEXTURE id="goucha">
+        <file path="images/goucha.jpg" />
+        <amplif_factor s="3.5" t="5" />
+    </TEXTURE>
+
+    <TEXTURE id="mendes">
+        <file path="images/mendes.jpg" />
+        <amplif_factor s="3.5" t="5" />
+    </TEXTURE>
+
+     <TEXTURE id="wooden_frame">
+        <file path="images/wooden_frame.jpg" />
+        <amplif_factor s="0.5" t="0.5" />
+    </TEXTURE>
 
 </TEXTURES>
 
@@ -95,6 +130,11 @@
 
         <DESCENDANTS>
             <NODEREF id="base" />
+            <NODEREF id="wall" />
+            <NODEREF id="wall2" />
+            <NODEREF id="floor" />
+            <NODEREF id="frames" />
+            <NODEREF id="frames2" />
         </DESCENDANTS>
 
     </NODE>
@@ -114,32 +154,234 @@
 
     </NODE>
 
-    <NODE id="table">
+    <NODE id="wall">
+        <MATERIAL id="defaultMaterial" />
+        <TEXTURE id="space" />
+
+        <TRANSLATION x="-70" y="-45" z="-80"/>
+
+        <DESCENDANTS>
+            <LEAF type="rectangle" args="0 180 180 0" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="wall2" selectable="true">
+        <MATERIAL id="defaultMaterial" />
+        <TEXTURE id="wallpaper" />
+
+        <TRANSLATION x="-70" y="-45" z="-79"/>
+
+        <DESCENDANTS>
+            <LEAF type="rectangle" args="0 180 180 0" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="floor">
         <MATERIAL id="defaultMaterial" />
         <TEXTURE id="wood" />
 
-        <TRANSLATION x="-23" y="-5.6" z="-23"/> 
+        <TRANSLATION x="-70" y="-45" z="100"/>
+        <ROTATION axis="x" angle="-90" />
 
-        <SCALE sx="15" sy="0.7" sz="15"/>
+        <DESCENDANTS>
+            <LEAF type="rectangle" args="0 180 180 0" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="frames2" selectable="true">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+
+        <TRANSLATION x="75" y="0" z="-78" />
+        <ROTATION axis="y" angle="-90" />
+
+
+
+        <DESCENDANTS>
+            <NODEREF id="frame3" />
+            <NODEREF id="frame4" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="frames">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+
+        <TRANSLATION x="75" y="0" z="-80" />
+        <ROTATION axis="y" angle="-90" />
+
+
+
+        <DESCENDANTS>
+            <NODEREF id="frame1" />
+            <NODEREF id="frame2" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="frame4">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="0" y="3" z="3" />
+
+        <SCALE sx="3" sy="10" sz="10" />
+
+        <DESCENDANTS>
+            <NODEREF id="frame_side1"/>
+            <NODEREF id="frame_side2"/>
+            <NODEREF id="frame_up" />
+            <NODEREF id="frame_down" />
+            <NODEREF id="goucha_frame" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="frame3">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="0" y="3" z="60" />
+
+        <SCALE sx="3" sy="10" sz="10" />
+
+        <DESCENDANTS>
+            <NODEREF id="frame_side1"/>
+            <NODEREF id="frame_side2"/>
+            <NODEREF id="frame_up" />
+            <NODEREF id="frame_down" />
+            <NODEREF id="mendes_frame" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="frame2">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="0" y="3" z="3" />
+
+        <SCALE sx="3" sy="10" sz="10" />
+
+        <DESCENDANTS>
+            <NODEREF id="frame_side1"/>
+            <NODEREF id="frame_side2"/>
+            <NODEREF id="frame_up" />
+            <NODEREF id="frame_down" />
+            <NODEREF id="copernicus" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="frame1">
+        <MATERIAL id="null" />
+        <TEXTURE id="null" />
+
+        <TRANSLATION x="0" y="3" z="60" />
+
+        <SCALE sx="3" sy="10" sz="10" />
+
+        <DESCENDANTS>
+            <NODEREF id="frame_side1"/>
+            <NODEREF id="frame_side2"/>
+            <NODEREF id="frame_up" />
+            <NODEREF id="frame_down" />
+            <NODEREF id="neil" />
+        </DESCENDANTS>
+    </NODE>
+
+
+     <NODE id="frame_side1">
+        <MATERIAL id="null" />
+        <TEXTURE id="wooden_frame" />
+
+        <SCALE sx="0.05" sy="1.3" sz="0.08" />
 
         <DESCENDANTS>
             <NODEREF id="cube"/>
         </DESCENDANTS>
-
     </NODE>
 
-    <NODE id="cup">
-        <MATERIAL id="defaultMaterial" />
+    <NODE id="frame_side2">
+        <MATERIAL id="null" />
         <TEXTURE id="null" />
 
-        <SCALE sx="2" sy="2" sz="2" />
+        <TRANSLATION x="0" y="0" z="4" />
 
         <DESCENDANTS>
-            <LEAF type="object" args="cup" />
+            <NODEREF id="frame_side1"/>
         </DESCENDANTS>
     </NODE>
 
-   
+    <NODE id="frame_up">
+        <MATERIAL id="null" />
+        <TEXTURE id="wooden_frame" />
+
+        <TRANSLATION x="0" y="6.1" z="0.05" />
+        <SCALE sx="0.05" sy="0.09" sz="0.87" />
+
+        <DESCENDANTS>
+            <NODEREF id="cube"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="frame_down">
+        <MATERIAL id="null" />
+        <TEXTURE id="wooden_frame" />
+
+        <TRANSLATION x="0" y="1" z="0.05" />
+        <SCALE sx="0.05" sy="0.09" sz="0.87" />
+
+        <DESCENDANTS>
+            <NODEREF id="cube"/>
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="neil">
+        <MATERIAL id="null" />
+        <TEXTURE id="neil" />
+
+        <TRANSLATION x="0.05" y="0" z="0" />
+        <ROTATION axis="y" angle="-90"/>
+
+        <DESCENDANTS>
+            <LEAF type="rectangle" args="4 6.5 0.4 1.1" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="copernicus">
+        <MATERIAL id="null" />
+        <TEXTURE id="copernicus" />
+
+        <TRANSLATION x="0.05" y="0" z="0" />
+        <ROTATION axis="y" angle="-90"/>
+
+        <DESCENDANTS>
+            <LEAF type="rectangle" args="4 6.5 0.4 1.1" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="goucha_frame">
+        <MATERIAL id="null" />
+        <TEXTURE id="goucha" />
+
+        <TRANSLATION x="0.07" y="0" z="0" />
+        <ROTATION axis="y" angle="-90"/>
+
+        <DESCENDANTS>
+            <LEAF type="rectangle" args="4 6.5 0.4 1.1" />
+        </DESCENDANTS>
+    </NODE>
+
+    <NODE id="mendes_frame" >
+        <MATERIAL id="null" />
+        <TEXTURE id="mendes" />
+
+        <TRANSLATION x="0.07" y="0" z="0" />
+        <ROTATION axis="y" angle="-90"/>
+
+        <DESCENDANTS>
+            <LEAF type="rectangle" args="4 6.5 0.4 1.1" />
+        </DESCENDANTS>
+    </NODE>
 
     <NODE id="cube">
         <MATERIAL id="null" />
