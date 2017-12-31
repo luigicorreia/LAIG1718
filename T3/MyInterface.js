@@ -89,4 +89,13 @@ MyInterface.prototype.chooseMode = function() {
 
 }
 
+MyInterface.prototype.chooseDifficulty = function() {
+
+    var group = this.gui.addFolder("Difficulties");
+    group.open();
+    group.add(this.scene, 'normal');
+    group.add(this.scene, 'hard');
+
+}
+
 

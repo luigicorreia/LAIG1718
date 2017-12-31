@@ -31,6 +31,10 @@ function XMLscene(interface) {
     this.human_vs_pc = false;
 
     this.human_vs_human = false;
+
+    this.normal = false;
+
+    this.hard = false;
 }
 
 XMLscene.prototype = Object.create(CGFscene.prototype);
@@ -44,7 +48,7 @@ XMLscene.prototype.init = function(application) {
 
     this.initCameras();
 
-    this.scenes = ["wood","red"];
+    this.scenes = ["space","tugalux"];
 
     this.enableTextures(true);
 
@@ -162,13 +166,17 @@ XMLscene.prototype.onGraphLoaded = function()
     // Adds lights group.
     this.interface.addButtons();
 
+    this.interface.chooseMode();
+
+    this.interface.chooseDifficulty();
+
     this.interface.addLightsGroup(this.graph.lights);
 
-    this.interface.addSelectables(this.graph.selectables, this.graph);
+    //this.interface.addSelectables(this.graph.selectables, this.graph);
 
     this.interface.chooseScene(this.scenes, this.graph);
 
-    this.interface.chooseMode();
+    
 }
 
 /**
@@ -265,16 +273,31 @@ XMLscene.prototype.logPicking = function (){
                         console.log("Moving...");
                         //this.moving = 1;
                         //this.animation = this.graph.movePiece([initialX,0,initialZ], [finalX,0,finalZ]);
-                        this.move();
-                        if(this.player == 0){
+                        //await sleep(200);
+                        if(this.human_vs_human){
+                            playerMove(this.initialX/4+1, this.initialZ/4+1, this.finalX/4+1, this.finalZ/4+1);
+                            updateGameState(getBoard());
+                            this.graph.board.pieces = this.processBoard(getBoard());
+                            if(this.player == 0){
+                                    this.changeCamera(1);
+                                    this.player = 1;
+                            }
+                            else if(this.player == 1){
+                                this.changeCamera(0);
+                                this.player = 0;
+                            }
+                            this.counter = 0;
+                        }
+                        else if(this.human_vs_pc){
+                            playerMove(this.initialX/4+1, this.initialZ/4+1, this.finalX/4+1, this.finalZ/4+1);
+                            updateGameState(getBoard());
+                            this.graph.board.pieces = this.processBoard(getBoard());
                             this.changeCamera(1);
-                            this.player = 1;
-                        }
-                        else if(this.player == 1){
+                            botMove();
+                            updateGameState(getBoard());
                             this.changeCamera(0);
-                            this.player = 0;
+                            this.counter = 0;
                         }
-                        this.counter = 0;
                     }
                 }
             }
@@ -309,17 +332,22 @@ XMLscene.prototype.StartGame = function(){
         alert("Please, choose a game mode");
     }
     else if(this.pc_vs_pc){
+        this.human_vs_pc = false;
+        this.human_vs_human = false;
         this.changeCamera(0);
         this.PcvsPcGame();
-
     }
     else if(this.human_vs_pc){
+        this.human_vs_human = false;
+        this.pc_vs_pc = false;
         this.changeCamera(0);
         initializeGameVariables(2, 1);
     }
     else if(this.human_vs_human){
+        this.human_vs_pc = false;
+        this.pc_vs_pc = false;
         this.changeCamera(0);
-        initializeGameVariables(2, 1);
+        initializeGameVariables(3, 1);
     }   
 }
 
@@ -331,16 +359,16 @@ XMLscene.prototype.processBoard = function(prologBoard) {
     for(var i = 0; i < 8; i++){
         for(var j = 0; j < 8; j++){
             if(prologBoard[i][j] == 1){
-                newBoard.push([new MyPiece(this, "white man"),(28-i*4),(j*4)]);
+                newBoard.push([new MyPiece(this, "white man"),i*4,(28-j*4)]);
             }
             else if(prologBoard[i][j] == 2){
-                newBoard.push([new MyPiece(this, "black man"),(28-i*4),(j*4)]);
+                newBoard.push([new MyPiece(this, "black man"),i*4,(28-j*4)]);
             }
             else if(prologBoard[i][j] == 3){
-                newBoard.push([new MyPiece(this, "white king"),(28-i*4),(j*4)]);
+                newBoard.push([new MyPiece(this, "white king"),i*4,(28-j*4)]);
             }
             else if(prologBoard[i][j] == 4){
-                newBoard.push([new MyPiece(this, "black king"),(28-i*4),(j*4)]);
+                newBoard.push([new MyPiece(this, "black king"),i*4,(28-j*4)]);
             }
         }
     }
@@ -350,16 +378,31 @@ XMLscene.prototype.processBoard = function(prologBoard) {
 
 
 XMLscene.prototype.PcvsPcGame = async function() {
+    this.setPickEnabled(false);
     initializeGameVariables(1, 1);
     await sleep(500);
-    console.log(getBoard());
     
     while(1){
         await sleep(1000);
         botMove();
         updateGameState(getBoard());
         this.graph.board.pieces = this.processBoard(getBoard());
-
+        /*if(winner != 0){
+            break;
+        }*/
     }
     
+    if(winner == 1){
+        alert("BOT1 WON!");
+    }
+    else if(winner == 2){
+        alert("BOT2 WON!");
+    }
+    
+    
 }
+
+
+
+
+

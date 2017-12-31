@@ -56,8 +56,10 @@ function initializeGameVariables(newGameMode, newGameDifficulty) {
 //change player
 function changeCurrentPlayer() {
     if (currentPlayer == 1) {
+        console.log("changed player");
         currentPlayer = 2;
     } else if (currentPlayer == 2) {
+        console.log("changed player");
         currentPlayer = 1;
     } else {
         return false;
@@ -85,6 +87,7 @@ function playerMove(row,col,NewRow,newcol) {
         console.log("Erro");
     }));
 }
+
 function updateGameState(newBoard) {
     setBoard(newBoard);
     movesHistory.push(move);
@@ -101,8 +104,11 @@ function checkGameOver() {
           winner = data.target.response;
         } else {
             move = [];
+            if(gameMode == 2){
+                currentPlayer = 1;
+            }
             changeCurrentPlayer();
-            passTurnIfPossible();
+            //passTurnIfPossible();
         }
     }), (function() {
         console.log("ERRO");
@@ -167,6 +173,10 @@ function undoPlay(){
         changeCurrentPlayer();
     }
     passTurnIfPossible();
+}
+
+function getWinner(){
+    return winner;
 }
 
 function sleep(ms) {

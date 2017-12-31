@@ -65,8 +65,6 @@ MyBoard.prototype.color = function(i) {
 
 MyBoard.prototype.fill = function() {
 
-	var n = 0;
-
 
 	for(let i = 0; i < this.pieces.length; i++){
 		this.scene.pushMatrix();
