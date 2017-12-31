@@ -308,7 +308,58 @@ XMLscene.prototype.StartGame = function(){
     if(!this.pc_vs_pc && !this.human_vs_pc && !this.human_vs_human){
         alert("Please, choose a game mode");
     }
-    else{
+    else if(this.pc_vs_pc){
         this.changeCamera(0);
+        this.PcvsPcGame();
+
     }
+    else if(this.human_vs_pc){
+        this.changeCamera(0);
+        initializeGameVariables(2, 1);
+    }
+    else if(this.human_vs_human){
+        this.changeCamera(0);
+        initializeGameVariables(2, 1);
+    }   
+}
+
+
+XMLscene.prototype.processBoard = function(prologBoard) {
+    console.log(getBoard());
+    var newBoard = [];
+
+    for(var i = 0; i < 8; i++){
+        for(var j = 0; j < 8; j++){
+            if(prologBoard[i][j] == 1){
+                newBoard.push([new MyPiece(this, "white man"),(28-i*4),(j*4)]);
+            }
+            else if(prologBoard[i][j] == 2){
+                newBoard.push([new MyPiece(this, "black man"),(28-i*4),(j*4)]);
+            }
+            else if(prologBoard[i][j] == 3){
+                newBoard.push([new MyPiece(this, "white king"),(28-i*4),(j*4)]);
+            }
+            else if(prologBoard[i][j] == 4){
+                newBoard.push([new MyPiece(this, "black king"),(28-i*4),(j*4)]);
+            }
+        }
+    }
+
+    return newBoard;
+}
+
+
+XMLscene.prototype.PcvsPcGame = async function() {
+    initializeGameVariables(1, 1);
+    await sleep(500);
+    console.log(getBoard());
+    
+    while(1){
+        await sleep(1000);
+        botMove();
+        updateGameState(getBoard());
+        this.graph.board.pieces = this.processBoard(getBoard());
+
+    }
+    
 }

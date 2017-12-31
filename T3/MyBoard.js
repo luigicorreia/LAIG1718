@@ -67,6 +67,14 @@ MyBoard.prototype.fill = function() {
 
 	var n = 0;
 
+
+	for(let i = 0; i < this.pieces.length; i++){
+		this.scene.pushMatrix();
+			this.scene.translate(this.pieces[i][1],0,this.pieces[i][2]);
+			this.pieces[i][0].display();
+		this.scene.popMatrix();
+	}
+	/*
 	for(let i = 0; i < 64; i++){
 		if(i < 8 || (9 <= i && i <= 14) || (18 <= i && i <= 21)){
 			this.scene.pushMatrix();
@@ -83,6 +91,7 @@ MyBoard.prototype.fill = function() {
 			this.scene.popMatrix();
 		}
 	}
+	*/
 }
 
 MyBoard.prototype.display = function() {

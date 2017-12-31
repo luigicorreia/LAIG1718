@@ -14,6 +14,7 @@ var gameState = "MAIN_MENU";
 
 function initializeGameVariables(newGameMode, newGameDifficulty) {
     gameState = "INITIALIZING_GAME";
+    console.log(gameState);
     board = [];
     move = [];
     gameMode = newGameMode || 1;
@@ -46,6 +47,9 @@ function initializeGameVariables(newGameMode, newGameDifficulty) {
     }), (function() {
         console.log("Erro");
     }));
+
+    console.log(board);
+
     return true;
 }
 
@@ -65,7 +69,7 @@ function changeCurrentPlayer() {
 function botMove() {
     gameState = "WAITING_BOT_MOVE";
     let aux = gameIndex + 1;
-    getPrologRequest("askPlayPC(" + aux + "," + JSON.stringify(board) ")", (function(data) {
+    getPrologRequest(("askPlayPC(" + aux + "," + JSON.stringify(board) + ")"), (function(data) {
         setBoard(JSON.parse(data.target.response));
     }), (function() {
         console.log("Erro");
@@ -75,7 +79,7 @@ function botMove() {
 
 function playerMove(row,col,NewRow,newcol) {
     gameState = "WAITING_BOT_MOVE";
-    getPrologRequest("askPlay(" + currentPlayer + "," + row + "," + col + "," + NewRow + "," + newcol + "," + JSON.stringify(board) ")", (function(data) {
+    getPrologRequest("askPlay(" + currentPlayer + "," + row + "," + col + "," + NewRow + "," + newcol + "," + JSON.stringify(board) + ")", (function(data) {
         setBoard(JSON.parse(data.target.response));
     }), (function() {
         console.log("Erro");
@@ -91,7 +95,7 @@ function updateGameState(newBoard) {
 //checks if the game ended
 function checkGameOver() {
     gameState = "CHECKING_GAME_OVER";
-    getPrologRequest("checkEnd(" gameIndex + "," + JSON.stringify(board) + ")", (function(data) {
+    getPrologRequest("checkEnd(" + gameIndex + "," + JSON.stringify(board) + ")", (function(data) {
 
         if (data.target.response[1] != 1 && data.target.response[1] != 2) {
           winner = data.target.response;
@@ -136,7 +140,7 @@ function setBoard(newBoard) {
     boardHistory.push(newBoard);
 }
 
-function getBoard(newBoard) {
+function getBoard() {
     return board;
 }
 
@@ -163,4 +167,8 @@ function undoPlay(){
         changeCurrentPlayer();
     }
     passTurnIfPossible();
+}
+
+function sleep(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }
