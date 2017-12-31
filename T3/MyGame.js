@@ -100,8 +100,11 @@ function checkGameOver() {
     gameState = "CHECKING_GAME_OVER";
     getPrologRequest("checkEnd(" + gameIndex + "," + JSON.stringify(board) + ")", (function(data) {
 
-        if (data.target.response[1] != 1 && data.target.response[1] != 2) {
-          winner = data.target.response;
+      let aux = JSON.parse(data.target.response);
+      if (aux[1] != 1 && aux[1] != 2) {
+          winner = aux[1];
+          console.log(winner);
+          return;
         } else {
             move = [];
             if(gameMode == 2){
